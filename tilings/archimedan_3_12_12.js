@@ -1,5 +1,5 @@
 window.onload = function() {
-        var raphael = Raphael(document.getElementById('canvas_container_3_12_12'), 500, 500),
+        var raphael = Raphael(document.getElementById('canvas_container_3_12_12'), 480, 480),
                     dashed = {fill: "none", stroke: "#666", "stroke-dasharray": "- "};
         var x = 200;
         var y = 150;
@@ -59,13 +59,13 @@ window.onload = function() {
             } 
             
             //console.log(s1);
-            raphael.path("M " + s1).attr({"fill":"blue"}); 
+            raphael.path("M " + s1).attr({"fill":"00CC66"}); 
             raphael.path("M " + s2).attr({"fill":"blue"}); 
             raphael.path("M " + s3).attr({"fill":"blue"});; 
-            raphael.path("M " + s4).attr({"fill":"blue"});; 
-            raphael.path("M " + s5).attr({"fill":"blue"});; 
+            raphael.path("M " + s4).attr({"fill":"00CC66"});; 
+            raphael.path("M " + s5).attr({"fill":"00CC66"});; 
             raphael.path("M " + s6).attr({"fill":"blue"});; 
-            raphael.path("M " + s7).attr({"fill":"blue"});; 
+            raphael.path("M " + s7).attr({"fill":"00CC66"});; 
             }
     //}
 }
