@@ -17,13 +17,15 @@ window.onload = function() {
             }
             return raphael.path("M " + shape);
         }
-    /**for (k = 0; k < 9; k++){
+    for (k = -1; k < 9; k++){
         for (j = -1 ; j < 9; j++){
-            make_regular_polygon(50+(k*150),50+(j*150),50,8).transform("R67.5");
+            //make_regular_polygon(50+(k*150),50+(j*150),50,8).transform("R67.5");
             //make_regular_polygon(125+(k*150),180+(j*87),50,6);
+            make_regular_polygon(100+(k*130),100+(j*130),50,8).transform("R67.5").attr({"fill":"red"});
+            make_regular_polygon(165+(k*130),165+(j*130),50,8).transform("R67.5").attr({"fill":"blue"});
+            make_regular_polygon(100+(k*130),165+(j*130),26.5,4).transform("R45").attr({"fill":"yellow"});
+
+
         }
-    }**/
-        make_regular_polygon(100,100,50,8).transform("R67.5");
-        make_regular_polygon(165,165,50,8).transform("R67.5");
-        make_regular_polygon(100,165,26.5,4).transform("R45");
+    }
 }
