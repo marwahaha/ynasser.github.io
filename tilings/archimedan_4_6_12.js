@@ -1,5 +1,5 @@
 window.onload = function() {
-        var raphael = Raphael(document.getElementById('canvas_container_4_6_12'), 900, 900),
+        var raphael = Raphael(document.getElementById('canvas_container_4_6_12'), 400, 400),
                     dashed = {fill: "none", stroke: "#666", "stroke-dasharray": "- "};
         
         function make_regular_polygon(x,y,r,n){
@@ -50,22 +50,9 @@ window.onload = function() {
             // bottom left square
             make_regular_polygon(72-(k*57),72+(k*212.5),32.5,4).transform("r-210T49,184").attr({"fill":"red"});
         }
-       /** 
-        //dodecagon
-        make_regular_polygon(150+180+32.5, 150-57, 90, 12);
-        //bottom_right_square
-        make_regular_polygon(228+180+32.5, 228-57, 32.5, 4);
-        //top_left_square
-        make_regular_polygon(72+180+32.5,72-57,32.5,4);
-        // middle_right_square
-        make_regular_polygon(72+180+32.5,72-57,32.5,4).transform("r210T184.5,49.5");
-        // top right square
-        make_regular_polygon(72+180+32.5,72-57,32.5,4).transform("r60T106.5,-28");
-        // middle left square
-        make_regular_polygon(72+180+32.5,72-57,32.5,4).transform("r-60T-28,106.5");
-        // bottom left square
-        make_regular_polygon(72+180+32.5,72-57,32.5,4).transform("r-210T49,184");
+        
+        make_regular_polygon(150-155, 150-155.2, 90, 12).attr({"fill":"blue"});
+        make_regular_polygon(150+155, 150+155.2, 90, 12).attr({"fill":"blue"});
+        make_regular_polygon(150+155+155,150+155.2+155.2, 90, 12).attr({"fill":"blue"});
 
-        //hexagon = make_regular_polygon(150,150,30,6);
-**/
 }
