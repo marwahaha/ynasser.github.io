@@ -50,9 +50,14 @@ window.onload = function() {
             // bottom left square
             make_regular_polygon(72-(k*57),72+(k*212.5),32.5,4).transform("r-210T49,184").attr({"fill":"red"});
         }
-        
+        // I am so lazy ... wow.        
         make_regular_polygon(150-155, 150-155.2, 90, 12).attr({"fill":"blue"});
         make_regular_polygon(150+155, 150+155.2, 90, 12).attr({"fill":"blue"});
         make_regular_polygon(150+155+155,150+155.2+155.2, 90, 12).attr({"fill":"blue"});
+        make_regular_polygon(383,383,32.5,4).attr({"fill":"red"});
+        make_regular_polygon(383,383,32.5,4).transform("r-60T28,-106.5").attr({"fill":"red"});
+        make_regular_polygon(383,383,32.5,4).transform("r-60T28,-106.5").attr({"fill":"red"});
+        make_regular_polygon(383,383,32.5,4).transform("r60T-107,28.5").attr({"fill":"red"});
+
 
 }
