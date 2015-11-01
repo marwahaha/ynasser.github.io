@@ -42,3 +42,4 @@ window.onload = function() {
 
         r.path("M " + (j*10+300) + " " + (j*10-200) + "l 10 0 l 0 50 l -10 0 z");
     }
+}
