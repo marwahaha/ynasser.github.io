@@ -1,11 +1,4 @@
 window.onload = function() {
-    var r = Raphael(document.getElementById('canvas_container_0'), 500, 500),
-                    dashed = {fill: "none", stroke: "#666", "stroke-dasharray": "- "};
-    for(var j=-1;j<10;j+=1){
-        for(var i=0; i<11; i+=1){
-            r.path("M " + i*50 + " " + j*50 + " l 0 50 l 50 0 z");
-        }
-    }
     var r = Raphael(document.getElementById('canvas_container_1'), 500, 500),
                     dashed = {fill: "none", stroke: "#666", "stroke-dasharray": "- "};
     
