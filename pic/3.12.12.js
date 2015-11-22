@@ -5,7 +5,10 @@ $(document).ready(function() {
 
     function make_regular_polygon(x,y,r,n,theta,print_coords = false){
         var shape = "";
-        var vertices = []; 
+        var vertices = [];
+        if (print_coords == true){
+           console.log("SIDES: " + n);
+        } 
         for (i = 0; i < n; i++) {
            x_unrotated = x + r * Math.cos(2 * Math.PI * i / n); 
            y_unrotated = y + r * Math.sin(2 * Math.PI * i / n);
@@ -28,7 +31,7 @@ $(document).ready(function() {
         return [path, vertices];
     }
     // http://math.stackexchange.com/questions/64823/how-to-find-the-third-coordinate-of-a-right-triangle-given-2-coordinates-and-len
-    function determine_midpoints(x,y,r,n,theta){
+    function determine_intersect_points(vertices,r,n,theta){
             // This function works similar to make_regular_polygons.
             // Recall that if P and Q are two points, then l(t)=P+t(Q-P) is the line segment beginning at P
             // and ending at Q if we restrict t>=0. If we want the midpoint, then for each point we generate,
@@ -53,15 +56,31 @@ $(document).ready(function() {
             // slope of B is m_B = -1/m_A = (x_2-x_1)/(y_2-y_1)
             // then p_3 = p_1 +- B[(1/sqrt(1+m_B*m_B),(m_B/sqrt(1+m_B^2)]
 
+        
+        // should return [[intersect_points, [originaltwopoints]], repeat ... ]
+        /**var intercept_list = [];
+        for(var v = 0; v < vertices.length; v++){
+            p0_x = vertices[v][0];
+            p0_y = vertices[v][1];
 
+            p1_x = vertices[v+1][0];
+            p1_y = vertices[v+1][1];
+            
+            p2_x = (p0_x+p1_x)/2;
+            p2_y = (p0_y+p1_y)/2;
+
+            // eventually
+            intercept_list.push([intersect_point, [[p0_x,p0_y],[p1_x,p1_y]]]);
+        }
+       **/
             // Step 1: find one midpoint and its friend coord
-            var p0_x = x + r * 1; 
-            var p0_y = 0;
+            var p0_x = vertices[10][0]; 
+            var p0_y = vertices[10][1];
             console.log("p0");
             console.log([p0_x,p0_y]);
            
-            var p1_x = x + r * Math.cos(2 * Math.PI * 1 / n); 
-            var p1_y = y + r * Math.sin(2 * Math.PI * 1 / n);
+            var p1_x = vertices[11][0]; 
+            var p1_y = vertices[11][1];
             console.log("p1");
             console.log([p1_x,p1_y])
 
@@ -77,36 +96,32 @@ $(document).ready(function() {
             
            // Maybe render all the dots on the page and see where they are??
 
-            var p2_p1_length = 40.2/2;//Math.sqrt(Math.pow((p2_x-p1_x),2) + Math.pow((p2_y-p1_y),2)) // should probably be around 38.8/2 ... what
+            var p2_p1_length = Math.sqrt(Math.pow((p2_x-p1_x),2) + Math.pow((p2_y-p1_y),2))
+            var p2_p0_length = Math.sqrt(Math.pow((p2_x-p0_x),2) + Math.pow((p2_y-p0_y),2))
             console.log("p2_p1_length: " + p2_p1_length);
+            console.log("p2_p0_length: " + p2_p0_length);
 
             // B = a tan theta
             var B = p2_p1_length * Math.tan(theta);
             console.log("B: " + B);
 
+            // These last calculations are completely wrong ... everything else is correct.
             var p3_x = p1_x + B*(1/Math.sqrt(1+Math.pow(m_B,2))); // I hope it is + signs ... 
             var p3_y = p1_y + B*(m_B/Math.sqrt(1+Math.pow(m_B,2)));
             console.log("p3");
             console.log([p3_x,p3_y]);
 
-            return [[p0_x, p0_y],[p1_x, p1_y],[p2_x, p2_y],[p3_x, p3_y]];
+            return ([p2_x,p2_y]); //[[p0_x, p0_y],[p1_x, p1_y],[p2_x, p2_y],[p3_x, p3_y]];
     }
     
     // 3.12.12
-    var dodecagon_set = make_regular_polygon(0,200,75,12,150,false);
+    var dodecagon_set = make_regular_polygon(0,200,75,12,150,true);
     var dodecagon = dodecagon_set[0]
     dodecagon.set({
         fill:'white',
         stroke:'green',
     })
      
-    var circle = new fabric.Circle({
-            radius:1,
-            fill:'red',
-            left:dodecagon_set[1][10][0],
-            top:dodecagon_set[1][10][1]
-    })
-    // why can't i just put them in space and perform calculations on them, and THEN move them around?
             
     var triangle_set = make_regular_polygon(101,213,23,3,0,true);
     var triangle = triangle_set[0];
@@ -115,8 +130,19 @@ $(document).ready(function() {
         stroke:'green',
     })
    canvas.add(triangle) 
+   var chickens = determine_intersect_points(dodecagon_set[1],23,3,30)
+   console.log("chickens");
+   console.log(chickens);
+    var circle = new fabric.Circle({
+            radius:1,
+            fill:'red',
+            left:chickens[0],
+            top:chickens[1]
+    })
+
+
     // I make the translational unit by cheating and overlapping pg_1 and pg_2.
- //   var pg_1 = new fabric.Group([dodecagon, triangle]);      
+    //var pg_1 = new fabric.Group([dodecagon, triangle]);      
  //   var pg_2 = new fabric.Group([dodecagon, triangle]);
     /**
     pg_1.set({
