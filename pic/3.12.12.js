@@ -22,7 +22,7 @@ $(document).ready(function() {
         return path;
     }
     // http://math.stackexchange.com/questions/64823/how-to-find-the-third-coordinate-of-a-right-triangle-given-2-coordinates-and-len
-    function determine_midpoints(x,y,n,theta){
+    function determine_midpoints(x,y,r,n,theta){
             // This function works similar to make_regular_polygons.
             // Recall that if P and Q are two points, then l(t)=P+t(Q-P) is the line segment beginning at P
             // and ending at Q if we restrict t>=0. If we want the midpoint, then for each point we generate,
@@ -51,15 +51,23 @@ $(document).ready(function() {
             // Step 1: find one midpoint and its friend coord
             var p0_x = x + r * 1; 
             var p0_y = 0;
+            console.log("p0");
+            console.log([p0_x,p0_y]);
            
             var p1_x = x + r * Math.cos(2 * Math.PI * 1 / n); 
             var p1_y = y + r * Math.sin(2 * Math.PI * 1 / n);
+            console.log("p1");
+            console.log([p1_x,p1_y])
 
             var p2_x = (p1_x-p0_x)/2;
             var p2_y = (p1_y-p0_y)/2;
+            console.log("p2");
+            console.log([p2_x,p2_y])
 
             var m_A = (p2_y-p1_y)/(p2_x-p1_x);
             var m_B = -1/m_A;
+            console.log("m_A: " + m_A);
+            console.log("m_B: " + m_B);
         
             var p2_p1_length = Math.sqrt(Math.pow(p2_x-p1_x,2) + Math.pow(p2_y-p1_y,2))
 
@@ -67,9 +75,21 @@ $(document).ready(function() {
             var B = p2_p1_length * Math.tan(theta);
 
             var p3_x = p1_x + B*(1/Math.sqrt(1+Math.pow(m_B,2))); // I hope it is + signs ... 
-            var p3_y = p1_y + B*(m_B/Math.sqrt(1+Math.pow(M_B,2)))
+            var p3_y = p1_y + B*(m_B/Math.sqrt(1+Math.pow(m_B,2)));
+
+            return [p3_x, p3_y];
     }
-    
+   
+    var happy_point = determine_midpoints(250,150,75,12,30);
+    console.log(happy_point);
+
+    var circle = new fabric.Circle({
+            radius:10,
+            fill:'red',
+            left:100,//happy_point[0],
+            top:100,//happy_point[1]
+    })
+
     // 3.12.12
     var dodecagon = make_regular_polygon(250,150,75,12);
     dodecagon.set({
@@ -99,7 +119,8 @@ $(document).ready(function() {
             angle:360/4
     })
     
-    canvas.add(pg_1);
+    //canvas.add(pg_1);
+    canvas.add(circle);
     //canvas.add(pg_2);
     // Everything past this line is concerned with tiling the plane, not PIC.
     /**
