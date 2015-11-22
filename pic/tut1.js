@@ -32,7 +32,7 @@ $(document).ready(function() {
     // 3.12.12
     var dodecagon_1 = make_regular_polygon(250,150,75,12);
     dodecagon_1.set({
-        fill:'red',
+        fill:'white',
         stroke:'green',
         angle:75
     })
@@ -40,7 +40,7 @@ $(document).ready(function() {
     
     var dodecagon_2 = make_regular_polygon(175.5,24.5,75,12);
     dodecagon_2.set({
-        fill:'blue',
+        fill:'white',
         stroke:'green',
         angle:75
     })
@@ -48,52 +48,25 @@ $(document).ready(function() {
     
     var triangle = make_regular_polygon(132,80,23,3);
     triangle.set({
-        fill:'black', 
+        fill:'white', 
         stroke:'green',
         angle:30
     })
     //canvas.add(triangle);
-    //var pg = new fabric.Group([dodecagon_1, dodecagon_2, triangle]);      
-    //pg.setCoords();
-    //canvas.add(pg);
+    var pg = new fabric.Group([dodecagon_1, dodecagon_2, triangle]);      
+    canvas.add(pg);
+    /**
     for (var k = -3; k<7; k++){
-    for (var j = -3; j<7; j++){
-        var pg = new fabric.Group([dodecagon_1, dodecagon_2, triangle]);      
-        pg.set({
-            left:140+(145*j),
-            top:-100+(250*k)
-        });
-        canvas.add(pg);
-    }
-    }
-    /**for(p=-1;p<6;p++){
-        for(q=0;q<6;q++){
-            var dodecagon_1 = make_regular_polygon(250+145.5*p,220+148*q,75,12);
-            dodecagon_1.set({
-                fill:'red',
-                stroke:'green',
-                angle:75
-            })
-            canvas.add(dodecagon_1);
-    
-            var dodecagon_2 = make_regular_polygon(175.5+145.5*p,24.5,75,12);
-            dodecagon_2.set({
-                fill:'blue',
-                stroke:'green',
-                angle:75
-            })
-            canvas.add(dodecagon_2);
-            
-            var triangle = make_regular_polygon(132+145.5*p,80,23,3);
-            triangle.set({
-                fill:'black', 
-                stroke:'green',
-                angle:30
-            })
-            canvas.add(triangle);
+        for (var j = -3; j<7; j++){
+            var pg = new fabric.Group([dodecagon_1, dodecagon_2, triangle]);      
+            pg.set({
+                left:140+(145*j),
+                top:-100+(250*k)
+            });
+            canvas.add(pg);
         }
-    }**/
-  
+    }
+    **/
     // 3^6
     /**
     for(l = 0;l < 6; l++){
