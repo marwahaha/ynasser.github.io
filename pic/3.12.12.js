@@ -91,22 +91,14 @@ $(document).ready(function() {
 
             return [[p0_x, p0_y],[p1_x, p1_y],[p2_x, p2_y],[p3_x, p3_y]];
     }
-    /** 
-    var happy_point = determine_midpoints(250,150,75,12,30);
-    console.log(happy_point);
-
-**/
+    
     // 3.12.12
-    var dodecagon_set = make_regular_polygon(0,200,75,12,150,true);
+    var dodecagon_set = make_regular_polygon(0,200,75,12,150,false);
     var dodecagon = dodecagon_set[0]
     dodecagon.set({
         fill:'white',
         stroke:'green',
-     //   left:333,
-     //   top:9,
     })
-            console.log(dodecagon_set[1][10][0])
-            console.log(dodecagon_set[1][10][1])
      
     var circle = new fabric.Circle({
             radius:1,
@@ -116,24 +108,13 @@ $(document).ready(function() {
     })
     // why can't i just put them in space and perform calculations on them, and THEN move them around?
             
-    var x_0 = dodecagon_set[1][10][0];
-    var y_0 =  dodecagon_set[1][10][1]; 
-    var x_1 = dodecagon_set[1][11][0];
-    var y_1 =  dodecagon_set[1][11][1];
-    var x_2 = (x_0+x_1)/2; 
-    var y_2 = 0.57735*(40.2);// find midpoint, move outwards along normal by d*sqrt(3)/2
-    var triangle_path = "M " +x_0+ " " +y_0 + " L "
-                + x_1 + " " + y_1 + " L "
-                + x_2 + " " + y_2 + "z";
-                          
-    canvas.add(new fabric.Path(triangle_path));/** 
-    var triangle_set = make_regular_polygon(132,80,23,3,30);
+    var triangle_set = make_regular_polygon(101,213,23,3,0,true);
     var triangle = triangle_set[0];
     triangle.set({
         fill:'white', 
         stroke:'green',
-    })**/
-    
+    })
+   canvas.add(triangle) 
     // I make the translational unit by cheating and overlapping pg_1 and pg_2.
  //   var pg_1 = new fabric.Group([dodecagon, triangle]);      
  //   var pg_2 = new fabric.Group([dodecagon, triangle]);
@@ -151,8 +132,9 @@ $(document).ready(function() {
     
     canvas.add(dodecagon);
     canvas.add(circle);
+    
     //canvas.add(pg_2);
-    // Everything past this line is concerned with tiling the plane, not PIC.
+    // Everything past this line is concerned with tiling the plane, not PIC. <-- All lies now!!
     /**
     // making a stack of translational units, so I translate them horizontally ... if this library's
     // documentation wasn't impossible to read, I could have just used vectors.
