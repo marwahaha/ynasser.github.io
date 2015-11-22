@@ -59,8 +59,8 @@ $(document).ready(function() {
             console.log("p1");
             console.log([p1_x,p1_y])
 
-            var p2_x = (p1_x-p0_x)/2;
-            var p2_y = (p1_y-p0_y)/2;
+            var p2_x = (p1_x+p0_x)/2;
+            var p2_y = (p1_y+p0_y)/2;
             console.log("p2");
             console.log([p2_x,p2_y])
 
@@ -68,14 +68,20 @@ $(document).ready(function() {
             var m_B = -1/m_A;
             console.log("m_A: " + m_A);
             console.log("m_B: " + m_B);
-        
-            var p2_p1_length = Math.sqrt(Math.pow(p2_x-p1_x,2) + Math.pow(p2_y-p1_y,2))
+            
+           // Maybe render all the dots on the page and see where they are??
+
+            var p2_p1_length = 40.2/2;//Math.sqrt(Math.pow((p2_x-p1_x),2) + Math.pow((p2_y-p1_y),2)) // should probably be around 38.8/2 ... what
+            console.log("p2_p1_length: " + p2_p1_length);
 
             // B = a tan theta
             var B = p2_p1_length * Math.tan(theta);
+            console.log("B: " + B);
 
             var p3_x = p1_x + B*(1/Math.sqrt(1+Math.pow(m_B,2))); // I hope it is + signs ... 
             var p3_y = p1_y + B*(m_B/Math.sqrt(1+Math.pow(m_B,2)));
+            console.log("p3");
+            console.log([p3_x,p3_y]);
 
             return [p3_x, p3_y];
     }
@@ -84,10 +90,10 @@ $(document).ready(function() {
     console.log(happy_point);
 
     var circle = new fabric.Circle({
-            radius:10,
+            radius:1,
             fill:'red',
-            left:100,//happy_point[0],
-            top:100,//happy_point[1]
+            left:happy_point[0],
+            top:happy_point[1]
     })
 
     // 3.12.12
@@ -119,7 +125,7 @@ $(document).ready(function() {
             angle:360/4
     })
     
-    //canvas.add(pg_1);
+    canvas.add(pg_1);
     canvas.add(circle);
     //canvas.add(pg_2);
     // Everything past this line is concerned with tiling the plane, not PIC.
