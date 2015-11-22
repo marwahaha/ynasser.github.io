@@ -29,15 +29,6 @@ $(document).ready(function() {
         stroke:'green',
         angle:75
     })
-    //canvas.add(dodecagon_1);
-    
-    var dodecagon_2 = make_regular_polygon(175.5,24.5,75,12);
-    dodecagon_2.set({
-        fill:'white',
-        stroke:'green',
-        angle:75
-    })
-    //canvas.add(dodecagon_2);
     
     var triangle_1 = make_regular_polygon(132,80,23,3,true);
     triangle_1.set({
@@ -46,14 +37,7 @@ $(document).ready(function() {
         angle:30
     })
     
-    var triangle_1 = make_regular_polygon(132,80,23,3);
-    triangle_1.set({
-        fill:'white', 
-        stroke:'green',
-        angle:30
-    })
-
-    //canvas.add(triangle);
+    // I make the translational unit by cheating and overlapping pg_1 and pg_2.
     var pg_1 = new fabric.Group([dodecagon_1, triangle_1]);      
     var pg_2 = new fabric.Group([dodecagon_1, triangle_1]);
     pg_1.set({
@@ -62,23 +46,24 @@ $(document).ready(function() {
             angle:360/12,
     })
     pg_2.set({
-            top:105.5,
-            left:145+73,
-            angle:360/6
+            top:146.7,
+            left:279,
+            angle:360/4
     })
-    canvas.add(pg_1,pg_2);
-    /**
+
+    // making a stack of translational units, so I translate them horizontally ... if this library's
+    // documentation wasn't impossible to read, I could have just used vectors.
+    var column = new fabric.Group();
     for (var k = -3; k<7; k++){
-        for (var j = -3; j<7; j++){
-            var pg = new fabric.Group([dodecagon_1, dodecagon_2, triangle]);      
-            pg.set({
-                left:140+(145*j),
-                top:-100+(250*k)
+            var temp_group = new fabric.Group([pg_1, pg_2]);      
+            temp_group.set({
+                left:300,
+                top:-100+(146*k)
             });
-            canvas.add(pg);
-        }
+            column.add(temp_group);
     }
-    **/
+    canvas.add(column);
+
     // 3^6
     /**
     for(l = 0;l < 6; l++){
