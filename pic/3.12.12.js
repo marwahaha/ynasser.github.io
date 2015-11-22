@@ -23,16 +23,16 @@ $(document).ready(function() {
     }
     
     // 3.12.12
-    var dodecagon_1 = make_regular_polygon(250,150,75,12,false);
+    var dodecagon_1 = make_regular_polygon(250,150,75,12);
     dodecagon_1.set({
-        fill:'white',
+        fill:'red',
         stroke:'green',
         angle:75
     })
     
-    var triangle_1 = make_regular_polygon(132,80,23,3,true);
+    var triangle_1 = make_regular_polygon(132,80,23,3);
     triangle_1.set({
-        fill:'white', 
+        fill:'blue', 
         stroke:'green',
         angle:30
     })
@@ -69,6 +69,7 @@ $(document).ready(function() {
             });
             column.add(temp_group_left, temp_group_right);
     }
+    // Finally putting everything together!
     var tiling = new fabric.Group();
     for (var j = -3; j < 4; j++){
             var tg = new fabric.Group([column]);
@@ -78,25 +79,4 @@ $(document).ready(function() {
             tiling.add(tg);
     }
     canvas.add(tiling);
-    // 3^6
-    /**
-    for(l = 0;l < 6; l++){
-        for(j = 0;j<6; j++){
-            for(k=0;k<5;k++){
-                 
-                var triangle = make_regular_polygon(224*j,130.5*l,75,3);
-                triangle.set({
-                    fill:'white', 
-                    stroke:'green',
-                    transformMatrix:[1,0,0,1,0,0], 
-                    angle:(k*60),
-                    //stroke-width:"6"
-                });
-                canvas.add(triangle);
-                
-            }
-        }
-    }
-    **/
-
 });
