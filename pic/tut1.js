@@ -3,22 +3,15 @@ $(document).ready(function() {
 
     var canvas = new fabric.StaticCanvas('c');
 
-	var rect = new fabric.Rect({
-          left: 100,
-          top: 100,
-          fill: 'red',
-          width: 20,
-          height: 20,
-          angle:45
-    });
-
-    function make_regular_polygon(x,y,r,n){
+    function make_regular_polygon(x,y,r,n,print_coords = false){
         var shape = "";
         
         for (i = 0; i < n; i++) {
            shape_x = x + r * Math.cos(2 * Math.PI * i / n); 
            shape_y = y + r * Math.sin(2 * Math.PI * i / n);
-           
+           if (print_coords == true){
+                console.log(shape_x, shape_y)
+           }
            if (i==n-1){
                shape = shape + " " + shape_x + " " + shape_y + " z";
            } else {
@@ -30,7 +23,7 @@ $(document).ready(function() {
     }
     
     // 3.12.12
-    var dodecagon_1 = make_regular_polygon(250,150,75,12);
+    var dodecagon_1 = make_regular_polygon(250,150,75,12,false);
     dodecagon_1.set({
         fill:'white',
         stroke:'green',
@@ -46,15 +39,34 @@ $(document).ready(function() {
     })
     //canvas.add(dodecagon_2);
     
-    var triangle = make_regular_polygon(132,80,23,3);
-    triangle.set({
+    var triangle_1 = make_regular_polygon(132,80,23,3,true);
+    triangle_1.set({
         fill:'white', 
         stroke:'green',
         angle:30
     })
+    
+    var triangle_1 = make_regular_polygon(132,80,23,3);
+    triangle_1.set({
+        fill:'white', 
+        stroke:'green',
+        angle:30
+    })
+
     //canvas.add(triangle);
-    var pg = new fabric.Group([dodecagon_1, dodecagon_2, triangle]);      
-    canvas.add(pg);
+    var pg_1 = new fabric.Group([dodecagon_1, triangle_1]);      
+    var pg_2 = new fabric.Group([dodecagon_1, triangle_1]);
+    pg_1.set({
+            top:100,
+            left:145,
+            angle:360/12,
+    })
+    pg_2.set({
+            top:105.5,
+            left:145+73,
+            angle:360/6
+    })
+    canvas.add(pg_1,pg_2);
     /**
     for (var k = -3; k<7; k++){
         for (var j = -3; j<7; j++){
