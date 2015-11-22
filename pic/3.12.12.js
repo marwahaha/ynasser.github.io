@@ -31,7 +31,7 @@ $(document).ready(function() {
         return [path, vertices];
     }
     // http://math.stackexchange.com/questions/64823/how-to-find-the-third-coordinate-of-a-right-triangle-given-2-coordinates-and-len
-    function determine_intersect_points(vertices,r,n,theta){
+    function determine_intersect_points(vertices,centre,r,n,theta){
             // This function works similar to make_regular_polygons.
             // Recall that if P and Q are two points, then l(t)=P+t(Q-P) is the line segment beginning at P
             // and ending at Q if we restrict t>=0. If we want the midpoint, then for each point we generate,
@@ -74,13 +74,13 @@ $(document).ready(function() {
         }
        **/
             // Step 1: find one midpoint and its friend coord
-            var p0_x = vertices[10][0]; 
-            var p0_y = vertices[10][1];
+            var p0_x = vertices[4][0]; 
+            var p0_y = vertices[4][1];
             console.log("p0");
             console.log([p0_x,p0_y]);
            
-            var p1_x = vertices[11][0]; 
-            var p1_y = vertices[11][1];
+            var p1_x = vertices[5][0]; 
+            var p1_y = vertices[5][1];
             console.log("p1");
             console.log([p1_x,p1_y])
 
@@ -106,8 +106,20 @@ $(document).ready(function() {
             console.log("B: " + B);
 
             // These last calculations are completely wrong ... everything else is correct.
-            var p3_x = p1_x + B*(1/Math.sqrt(1+Math.pow(m_B,2))); // I hope it is + signs ... 
-            var p3_y = p1_y + B*(m_B/Math.sqrt(1+Math.pow(m_B,2)));
+            /**var p3_x = p1_x + B*(1/Math.sqrt(1+Math.pow(m_B,2))); // I hope it is + signs ... 
+            var p3_y = p1_y + B*(m_B/Math.sqrt(1+Math.pow(m_B,2)));**/
+            // equation of the line coming out of the midpoint:
+            // p2_y = tan(theta)*p2_x + b
+            // b = p2_y - tan(theta)*p2_x 
+            //
+            // equation from point next to it (actual vertex) and centre vertex
+            // slope = (centre[1]-p0_y)/(centre[0]-p0_x)
+            // using y=mx+b:
+            // centre[1]=m*centre[0]+b =>
+            // b = centre[1]-m*centre[0]
+            // => y = finish in morning
+            // now we have the above two lines ... and we sent them equal to each other and solve for x and y
+            //
             console.log("p3");
             console.log([p3_x,p3_y]);
 
@@ -115,6 +127,7 @@ $(document).ready(function() {
     }
     
     // 3.12.12
+    var dodecagon_centre = [0,200]
     var dodecagon_set = make_regular_polygon(0,200,75,12,150,true);
     var dodecagon = dodecagon_set[0]
     dodecagon.set({
@@ -130,7 +143,7 @@ $(document).ready(function() {
         stroke:'green',
     })
    canvas.add(triangle) 
-   var chickens = determine_intersect_points(dodecagon_set[1],23,3,30)
+   var chickens = determine_intersect_points(dodecagon_set[1],dodecagon_centre,23,3,30)
    console.log("chickens");
    console.log(chickens);
     var circle = new fabric.Circle({
