@@ -1,0 +1,22 @@
+Goal: 25 minutes with 5 minutes of questions?
+Topics: an introduction to tiling theory and Islamic star patterns
+
+Some things I will have to cover:
+1. What is a tiling? A periodic tiling?
+2. How do we name/describe tilings? Are there special tilings? Mention Frieze and Wallpaper groups ... classifying symmetry in the plane!
+3. How do we make tilings? Computers or straightedge & compass. Show some examples. Also show Kepler's weird tilings.
+4. What is an Islamic star pattern?
+5. How did they used to make Islamic star patterns?
+    -> We don't really know, but we can make educated guesses based on the geometry we knew they had access to back then.
+    -> Examples of different kinds of star patterns from different regions. There are some regional styles, but there 
+    is not a comprehensive way of determing where most Islamic star patterns originate. There is lots of work to be done
+    in this area of historical mathematics.
+6. How do we make Islamic star patterns now?
+    -> Hankin's PIC ... cover regular polygons first
+    -> Mention that different tilings will produce the same result if PIC is applied to them
+    -> This hints at some kind of ... underlying structure?
+    -> Touch on Parquet deformations which happen as a result of this.
+    -> Go back and cover what happens in you aren't using regular polygons. 
+
+How do I give a math talk which is not all definitions?
+
