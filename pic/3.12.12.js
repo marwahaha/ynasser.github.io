@@ -45,23 +45,43 @@ $(document).ready(function() {
             return midpoints;
     }
 
+    var theta = 90;
+    var angle = (360 - theta) * (Math.PI/180);
     var vertices = determine_vertices(250,150,75,12);
     var midpoints = determine_midpoints(vertices);
-    happy_point = midpoints[0];
-    console.log(happy_point);
 
-    var circle_m = new fabric.Circle({
-            radius:1,
+    p_1 = vertices[0]
+    m_1 = midpoints[0]
+
+    var n_1_x = Math.cos(angle) * (p_1[0] - m_1[0]) - Math.sin(angle) * (p_1[1] - m_1[1]) + m_1[0];
+    var n_1_y = Math.sin(angle) * (p_1[0] - m_1[0]) + Math.cos(angle) * (p_1[1] - m_1[1]) + m_1[1];
+
+     
+
+    //var n_1_x = Math.cos(theta)*(p_1[0]-m_1[0])-Math.sin(theta)*(p_1[1]-m_1[1])+m_1[0];
+    //var n_1_y = Math.sin(theta)*(p_1[0]-m_1[1])+Math.cos(theta)*(p_1[1]-m_1[1])+m_1[1];
+    var n_1 = [n_1_x, n_1_y];
+    console.log("n_1: " + n_1);
+    
+    var m_1_circle = new fabric.Circle({
+            radius:4,
             fill:'red',
-            left:happy_point[0],
-            top:happy_point[1]
+            left:m_1[0],
+            top:m_1[1]
     })
     
-    var circle_p = new fabric.Circle({
-            radius:1,
+    var p_1_circle = new fabric.Circle({
+            radius:4,
             fill:'black',
-            left:vertices[0][0],
-            top:vertices[0][1]
+            left:p_1[0],
+            top:p_1[1]
+    })
+    
+    var n_1_circle = new fabric.Circle({
+            radius:4,
+            fill:'black',
+            left:n_1[0],
+            top:n_1[1]
     })
     
     // 3.12.12
@@ -92,8 +112,9 @@ $(document).ready(function() {
     })
     **/
     canvas.add(dodecagon);
-    canvas.add(circle_p);
-    canvas.add(circle_m);
+    canvas.add(p_1_circle);
+    canvas.add(m_1_circle);
+    canvas.add(n_1_circle);
     //canvas.add(circle);
     //canvas.add(pg_2);
     // Everything past this line is concerned with tiling the plane, not PIC.
