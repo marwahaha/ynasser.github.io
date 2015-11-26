@@ -21,96 +21,62 @@ $(document).ready(function() {
         var path = new fabric.Path("M " + shape);
         return path;
     }
-    // http://math.stackexchange.com/questions/64823/how-to-find-the-third-coordinate-of-a-right-triangle-given-2-coordinates-and-len
-    function determine_midpoints(x,y,r,n,theta){
-            // This function works similar to make_regular_polygons.
-            // Recall that if P and Q are two points, then l(t)=P+t(Q-P) is the line segment beginning at P
-            // and ending at Q if we restrict t>=0. If we want the midpoint, then for each point we generate,
-            // we calculate [(p_x-q_x)/2, (p_y-q_y)/2]
-            // It returns a list of coordinates which represent midpoints.
-            //
-            // Algorithm:
-            //  p0
-            //  |
-            //  |
-            //  p2 (p2 is the midpoint)
-            //  |\
-            //  |b\
-            //  |  \
-            // A|   \C
-            //  |    \
-            //  |c___a\
-            // p1  B   p3
-            //
-            // coordinates of pn are (x_n,y_n)
-            // slope of A is m_A = (y_2-y1)/(x_2-x_1)
-            // slope of B is m_B = -1/m_A = (x_2-x_1)/(y_2-y_1)
-            // then p_3 = p_1 +- B[(1/sqrt(1+m_B*m_B),(m_B/sqrt(1+m_B^2)]
 
+    function determine_vertices(x,y,r,n){
+        var vertices = [];
+        for (i = 0; i < n; i++) {
+                tmp_x = x + r * Math.cos(2 * Math.PI * i / n); 
+                tmp_y = y + r * Math.sin(2 * Math.PI * i / n);
 
-            // Step 1: find one midpoint and its friend coord
-            var p0_x = x + r * 1; 
-            var p0_y = 0;
-            console.log("p0");
-            console.log([p0_x,p0_y]);
-           
-            var p1_x = x + r * Math.cos(2 * Math.PI * 1 / n); 
-            var p1_y = y + r * Math.sin(2 * Math.PI * 1 / n);
-            console.log("p1");
-            console.log([p1_x,p1_y])
-
-            var p2_x = (p1_x+p0_x)/2;
-            var p2_y = (p1_y+p0_y)/2;
-            console.log("p2");
-            console.log([p2_x,p2_y])
-
-            var m_A = (p2_y-p1_y)/(p2_x-p1_x);
-            var m_B = -1/m_A;
-            console.log("m_A: " + m_A);
-            console.log("m_B: " + m_B);
-            
-           // Maybe render all the dots on the page and see where they are??
-
-            var p2_p1_length = 40.2/2;//Math.sqrt(Math.pow((p2_x-p1_x),2) + Math.pow((p2_y-p1_y),2)) // should probably be around 38.8/2 ... what
-            console.log("p2_p1_length: " + p2_p1_length);
-
-            // B = a tan theta
-            var B = p2_p1_length * Math.tan(theta);
-            console.log("B: " + B);
-
-            var p3_x = p1_x + B*(1/Math.sqrt(1+Math.pow(m_B,2))); // I hope it is + signs ... 
-            var p3_y = p1_y + B*(m_B/Math.sqrt(1+Math.pow(m_B,2)));
-            console.log("p3");
-            console.log([p3_x,p3_y]);
-
-            return [p3_x, p3_y];
+                vertices.push([tmp_x, tmp_y]);
+        }
+        return vertices;
     }
-   
-    var happy_point = determine_midpoints(250,150,75,12,30);
+
+    function determine_midpoints(vertices){
+            var midpoints = [];
+            var l = vertices.length
+            for(var v = 0; v < l; v++){
+                tmp_x = (vertices[v%l][0] + vertices[(v+1)%l][0])/2
+                tmp_y = (vertices[v%l][1] + vertices[(v+1)%l][1])/2
+
+                midpoints.push([tmp_x, tmp_y])
+            }
+            return midpoints;
+    }
+
+    var vertices = determine_vertices(250,150,75,12);
+    var midpoints = determine_midpoints(vertices);
+    happy_point = midpoints[0];
     console.log(happy_point);
 
-    var circle = new fabric.Circle({
+    var circle_m = new fabric.Circle({
             radius:1,
             fill:'red',
             left:happy_point[0],
             top:happy_point[1]
     })
-
+    
+    var circle_p = new fabric.Circle({
+            radius:1,
+            fill:'black',
+            left:vertices[0][0],
+            top:vertices[0][1]
+    })
+    
     // 3.12.12
     var dodecagon = make_regular_polygon(250,150,75,12);
     dodecagon.set({
         fill:'white',
         stroke:'green',
-        angle:75
     })
     
     var triangle = make_regular_polygon(132,80,23,3);
     triangle.set({
         fill:'white', 
         stroke:'green',
-        angle:30
     })
-    
+   /** 
     // I make the translational unit by cheating and overlapping pg_1 and pg_2.
     var pg_1 = new fabric.Group([dodecagon, triangle]);      
     var pg_2 = new fabric.Group([dodecagon, triangle]);
@@ -124,9 +90,11 @@ $(document).ready(function() {
             left:279,
             angle:360/4
     })
-    
-    canvas.add(pg_1);
-    canvas.add(circle);
+    **/
+    canvas.add(dodecagon);
+    canvas.add(circle_p);
+    canvas.add(circle_m);
+    //canvas.add(circle);
     //canvas.add(pg_2);
     // Everything past this line is concerned with tiling the plane, not PIC.
     /**
