@@ -45,47 +45,62 @@ $(document).ready(function() {
             return midpoints;
     }
 
-    var theta = 90;
+    var centre_x = 250;
+    var centre_y = 150;
+    var theta = 0;
     var angle = (360 - theta) * (Math.PI/180);
-    var vertices = determine_vertices(250,150,75,12);
+    var vertices = determine_vertices(centre_x,centre_y,75,12);
     var midpoints = determine_midpoints(vertices);
 
-    p_1 = vertices[0]
-    m_1 = midpoints[0]
+    var p1 = vertices[0];
+    var m1 = midpoints[0];
 
-    var n_1_x = Math.cos(angle) * (p_1[0] - m_1[0]) - Math.sin(angle) * (p_1[1] - m_1[1]) + m_1[0];
-    var n_1_y = Math.sin(angle) * (p_1[0] - m_1[0]) + Math.cos(angle) * (p_1[1] - m_1[1]) + m_1[1];
+    var n1_x = Math.cos(angle) * (p1[0] - m1[0]) - Math.sin(angle) * (p1[1] - m1[1]) + m1[0];
+    var n1_y = Math.sin(angle) * (p1[0] - m1[0]) + Math.cos(angle) * (p1[1] - m1[1]) + m1[1];
+    var n1 = [n1_x, n1_y];
+   
+    var l1_slope = (n1_y-m1[1])/(n1_x-m1[0]);
+    var l1_b = n1_y - (l1_slope)*n1_x;
 
-     
+    var l2_slope = (centre_y - p1[1])/(centre_x - p1[0]);
+    var l2_b = centre_y - (l2_slope)*centre_x;
+        
+    var px = (l2_b - l1_b)/(l1_slope - l2_slope);
+    var py = l1_slope*px + l1_b;
+    var p = [px, py];
 
-    //var n_1_x = Math.cos(theta)*(p_1[0]-m_1[0])-Math.sin(theta)*(p_1[1]-m_1[1])+m_1[0];
-    //var n_1_y = Math.sin(theta)*(p_1[0]-m_1[1])+Math.cos(theta)*(p_1[1]-m_1[1])+m_1[1];
-    var n_1 = [n_1_x, n_1_y];
-    console.log("n_1: " + n_1);
-    
-    var m_1_circle = new fabric.Circle({
+    console.log("p: " + p);
+
+    var m1_circle = new fabric.Circle({
             radius:4,
             fill:'red',
-            left:m_1[0],
-            top:m_1[1]
+            left:m1[0],
+            top:m1[1]
     })
     
-    var p_1_circle = new fabric.Circle({
+    var p1_circle = new fabric.Circle({
             radius:4,
             fill:'black',
-            left:p_1[0],
-            top:p_1[1]
+            left:p1[0],
+            top:p1[1]
     })
     
-    var n_1_circle = new fabric.Circle({
+    var n1_circle = new fabric.Circle({
             radius:4,
             fill:'black',
-            left:n_1[0],
-            top:n_1[1]
+            left:n1[0],
+            top:n1[1]
+    })
+    
+    var p_circle = new fabric.Circle({
+            radius:4,
+            fill:'black',
+            left:px,
+            top:py
     })
     
     // 3.12.12
-    var dodecagon = make_regular_polygon(250,150,75,12);
+    var dodecagon = make_regular_polygon(centre_x,centre_y,75,12);
     dodecagon.set({
         fill:'white',
         stroke:'green',
@@ -112,9 +127,10 @@ $(document).ready(function() {
     })
     **/
     canvas.add(dodecagon);
-    canvas.add(p_1_circle);
-    canvas.add(m_1_circle);
-    canvas.add(n_1_circle);
+    canvas.add(p1_circle);
+    canvas.add(m1_circle);
+    canvas.add(n1_circle);
+    canvas.add(p_circle);
     //canvas.add(circle);
     //canvas.add(pg_2);
     // Everything past this line is concerned with tiling the plane, not PIC.
