@@ -3,21 +3,12 @@ $(document).ready(function() {
 
     var canvas = new fabric.StaticCanvas('c');
 
-    function make_regular_polygon(x,y,r,n,theta,print_coords = false){
+    function make_regular_polygon(x,y,r,n,print_coords = false){
         var shape = "";
-        var vertices = [];
-        if (print_coords == true){
-           console.log("SIDES: " + n);
-        } 
+        
         for (i = 0; i < n; i++) {
-           x_unrotated = x + r * Math.cos(2 * Math.PI * i / n); 
-           y_unrotated = y + r * Math.sin(2 * Math.PI * i / n);
-
-            shape_x = Math.cos(theta)*x_unrotated - Math.sin(theta)*y_unrotated;
-            shape_y = Math.sin(theta)*x_unrotated + Math.cos(theta)*y_unrotated;
-            
-            vertices.push([shape_x,shape_y]);
-
+           shape_x = x + r * Math.cos(2 * Math.PI * i / n); 
+           shape_y = y + r * Math.sin(2 * Math.PI * i / n);
            if (print_coords == true){
                 console.log(shape_x, shape_y)
            }
@@ -28,136 +19,102 @@ $(document).ready(function() {
            }
         }
         var path = new fabric.Path("M " + shape);
-        return [path, vertices];
+        return path;
     }
-    // http://math.stackexchange.com/questions/64823/how-to-find-the-third-coordinate-of-a-right-triangle-given-2-coordinates-and-len
-    function determine_intersect_points(vertices,centre,r,n,theta){
-            // This function works similar to make_regular_polygons.
-            // Recall that if P and Q are two points, then l(t)=P+t(Q-P) is the line segment beginning at P
-            // and ending at Q if we restrict t>=0. If we want the midpoint, then for each point we generate,
-            // we calculate [(p_x-q_x)/2, (p_y-q_y)/2]
-            // It returns a list of coordinates which represent midpoints.
-            //
-            // Algorithm:
-            //  p0
-            //  |
-            //  |
-            //  p2 (p2 is the midpoint)
-            //  |\
-            //  |b\
-            //  |  \
-            // A|   \C
-            //  |    \
-            //  |c___a\
-            // p1  B   p3
-            //
-            // coordinates of pn are (x_n,y_n)
-            // slope of A is m_A = (y_2-y1)/(x_2-x_1)
-            // slope of B is m_B = -1/m_A = (x_2-x_1)/(y_2-y_1)
-            // then p_3 = p_1 +- B[(1/sqrt(1+m_B*m_B),(m_B/sqrt(1+m_B^2)]
 
-        
-        // should return [[intersect_points, [originaltwopoints]], repeat ... ]
-        /**var intercept_list = [];
-        for(var v = 0; v < vertices.length; v++){
-            p0_x = vertices[v][0];
-            p0_y = vertices[v][1];
+    function determine_vertices(x,y,r,n){
+        var vertices = [];
+        for (i = 0; i < n; i++) {
+                tmp_x = x + r * Math.cos(2 * Math.PI * i / n); 
+                tmp_y = y + r * Math.sin(2 * Math.PI * i / n);
 
-            p1_x = vertices[v+1][0];
-            p1_y = vertices[v+1][1];
-            
-            p2_x = (p0_x+p1_x)/2;
-            p2_y = (p0_y+p1_y)/2;
-
-            // eventually
-            intercept_list.push([intersect_point, [[p0_x,p0_y],[p1_x,p1_y]]]);
+                vertices.push([tmp_x, tmp_y]);
         }
-       **/
-            // Step 1: find one midpoint and its friend coord
-            var p0_x = vertices[4][0]; 
-            var p0_y = vertices[4][1];
-            console.log("p0");
-            console.log([p0_x,p0_y]);
-           
-            var p1_x = vertices[5][0]; 
-            var p1_y = vertices[5][1];
-            console.log("p1");
-            console.log([p1_x,p1_y])
-
-            var p2_x = (p1_x+p0_x)/2;
-            var p2_y = (p1_y+p0_y)/2;
-            console.log("p2");
-            console.log([p2_x,p2_y])
-
-            var m_A = (p2_y-p1_y)/(p2_x-p1_x);
-            var m_B = -1/m_A;
-            console.log("m_A: " + m_A);
-            console.log("m_B: " + m_B);
-            
-           // Maybe render all the dots on the page and see where they are??
-
-            var p2_p1_length = Math.sqrt(Math.pow((p2_x-p1_x),2) + Math.pow((p2_y-p1_y),2))
-            var p2_p0_length = Math.sqrt(Math.pow((p2_x-p0_x),2) + Math.pow((p2_y-p0_y),2))
-            console.log("p2_p1_length: " + p2_p1_length);
-            console.log("p2_p0_length: " + p2_p0_length);
-
-            // B = a tan theta
-            var B = p2_p1_length * Math.tan(theta);
-            console.log("B: " + B);
-
-            // These last calculations are completely wrong ... everything else is correct.
-            /**var p3_x = p1_x + B*(1/Math.sqrt(1+Math.pow(m_B,2))); // I hope it is + signs ... 
-            var p3_y = p1_y + B*(m_B/Math.sqrt(1+Math.pow(m_B,2)));**/
-            // equation of the line coming out of the midpoint:
-            // p2_y = tan(theta)*p2_x + b
-            // b = p2_y - tan(theta)*p2_x 
-            //
-            // equation from point next to it (actual vertex) and centre vertex
-            // slope = (centre[1]-p0_y)/(centre[0]-p0_x)
-            // using y=mx+b:
-            // centre[1]=m*centre[0]+b =>
-            // b = centre[1]-m*centre[0]
-            // => y = finish in morning
-            // now we have the above two lines ... and we sent them equal to each other and solve for x and y
-            //
-            console.log("p3");
-            console.log([p3_x,p3_y]);
-
-            return ([p2_x,p2_y]); //[[p0_x, p0_y],[p1_x, p1_y],[p2_x, p2_y],[p3_x, p3_y]];
+        return vertices;
     }
+
+    function determine_midpoints(vertices){
+            var midpoints = [];
+            var l = vertices.length
+            for(var v = 0; v < l; v++){
+                tmp_x = (vertices[v%l][0] + vertices[(v+1)%l][0])/2
+                tmp_y = (vertices[v%l][1] + vertices[(v+1)%l][1])/2
+
+                midpoints.push([tmp_x, tmp_y])
+            }
+            return midpoints;
+    }
+
+    var centre_x = 250;
+    var centre_y = 150;
+    var theta = 0;
+    var angle = (360 - theta) * (Math.PI/180);
+    var vertices = determine_vertices(centre_x,centre_y,75,12);
+    var midpoints = determine_midpoints(vertices);
+
+    var p1 = vertices[0];
+    var m1 = midpoints[0];
+
+    var n1_x = Math.cos(angle) * (p1[0] - m1[0]) - Math.sin(angle) * (p1[1] - m1[1]) + m1[0];
+    var n1_y = Math.sin(angle) * (p1[0] - m1[0]) + Math.cos(angle) * (p1[1] - m1[1]) + m1[1];
+    var n1 = [n1_x, n1_y];
+   
+    var l1_slope = (n1_y-m1[1])/(n1_x-m1[0]);
+    var l1_b = n1_y - (l1_slope)*n1_x;
+
+    var l2_slope = (centre_y - p1[1])/(centre_x - p1[0]);
+    var l2_b = centre_y - (l2_slope)*centre_x;
+        
+    var px = (l2_b - l1_b)/(l1_slope - l2_slope);
+    var py = l1_slope*px + l1_b;
+    var p = [px, py];
+
+    console.log("p: " + p);
+
+    var m1_circle = new fabric.Circle({
+            radius:4,
+            fill:'red',
+            left:m1[0],
+            top:m1[1]
+    })
+    
+    var p1_circle = new fabric.Circle({
+            radius:4,
+            fill:'black',
+            left:p1[0],
+            top:p1[1]
+    })
+    
+    var n1_circle = new fabric.Circle({
+            radius:4,
+            fill:'black',
+            left:n1[0],
+            top:n1[1]
+    })
+    
+    var p_circle = new fabric.Circle({
+            radius:4,
+            fill:'black',
+            left:px,
+            top:py
+    })
     
     // 3.12.12
-    var dodecagon_centre = [0,200]
-    var dodecagon_set = make_regular_polygon(0,200,75,12,150,true);
-    var dodecagon = dodecagon_set[0]
+    var dodecagon = make_regular_polygon(centre_x,centre_y,75,12);
     dodecagon.set({
         fill:'white',
         stroke:'green',
     })
-     
-            
-    var triangle_set = make_regular_polygon(101,213,23,3,0,true);
-    var triangle = triangle_set[0];
+    
+    var triangle = make_regular_polygon(132,80,23,3);
     triangle.set({
         fill:'white', 
         stroke:'green',
     })
-   canvas.add(triangle) 
-   var chickens = determine_intersect_points(dodecagon_set[1],dodecagon_centre,23,3,30)
-   console.log("chickens");
-   console.log(chickens);
-    var circle = new fabric.Circle({
-            radius:1,
-            fill:'red',
-            left:chickens[0],
-            top:chickens[1]
-    })
-
-
+   /** 
     // I make the translational unit by cheating and overlapping pg_1 and pg_2.
-    //var pg_1 = new fabric.Group([dodecagon, triangle]);      
- //   var pg_2 = new fabric.Group([dodecagon, triangle]);
-    /**
+    var pg_1 = new fabric.Group([dodecagon, triangle]);      
+    var pg_2 = new fabric.Group([dodecagon, triangle]);
     pg_1.set({
             top:100,
             left:145,
@@ -167,13 +124,16 @@ $(document).ready(function() {
             top:146.7,
             left:279,
             angle:360/4
-    })**/
-    
+    })
+    **/
     canvas.add(dodecagon);
-    canvas.add(circle);
-    
+    canvas.add(p1_circle);
+    canvas.add(m1_circle);
+    canvas.add(n1_circle);
+    canvas.add(p_circle);
+    //canvas.add(circle);
     //canvas.add(pg_2);
-    // Everything past this line is concerned with tiling the plane, not PIC. <-- All lies now!!
+    // Everything past this line is concerned with tiling the plane, not PIC.
     /**
     // making a stack of translational units, so I translate them horizontally ... if this library's
     // documentation wasn't impossible to read, I could have just used vectors.
