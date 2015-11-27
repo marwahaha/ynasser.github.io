@@ -34,19 +34,59 @@ $(document).ready(function() {
     }
 
     function determine_midpoints(vertices){
-            var midpoints = [];
-            var l = vertices.length
-            for(var v = 0; v < l; v++){
-                tmp_x = (vertices[v%l][0] + vertices[(v+1)%l][0])/2
-                tmp_y = (vertices[v%l][1] + vertices[(v+1)%l][1])/2
+        var midpoints = [];
+        var l = vertices.length
+        for(var v = 0; v < l; v++){
+            tmp_x = (vertices[v%l][0] + vertices[(v+1)%l][0])/2
+            tmp_y = (vertices[v%l][1] + vertices[(v+1)%l][1])/2
 
-                midpoints.push([tmp_x, tmp_y])
-            }
-            return midpoints;
+            midpoints.push([tmp_x, tmp_y])
+        }
+        return midpoints;
     }
 
+    function determine_contact_points(theta, vertices, midpoints, centre, n){
+       var centre_x = centre[0];
+       var centre_y = centre[1];
+       var angle = (360-theta) * (Math.PI/180);
+       var l = vertices.length;
+       var contact_points = [];
+
+       for (var i = 0; i<l; i++){
+            var p1 = vertices[i%l];
+            var m1 = midpoint[i%l];
+    
+            var n1_x = Math.cos(angle) * (p1[i%l] - m1[i%l]) - Math.sin(angle) * (p1[(i%l)+1] - m1[(i%l)+1]) + m1[i%l];
+            var n1_y = Math.sin(angle) * (p1[i%l] - m1[i%l]) + Math.cos(angle) * (p1[(i%l)+1] - m1[(i%l)+1]) + m1[(i%l)+1];
+            var n1 = [n1_x, n1_y];
+            
+            var l1_slope = (n1_y-m1[1])/(n1_x-m1[0]);
+            var l1_b = n1_y - (l1_slope)*n1_x;
+
+            var l2_slope = (centre_y - p1[1])/(centre_x - p1[0]);
+            var l2_b = centre_y - (l2_slope)*centre_x;
+                
+            var px = (l2_b - l1_b)/(l1_slope - l2_slope);
+            var py = l1_slope*px + l1_b;
+            var p = [px, py];
+
+            contact_points.push(p);
+       }
+      
+      return contact_points; 
+    }
+    var centre = [250, 150];
+    var theta = 30;
+    var radius = 75;
+    var n = 12;
+    var vertices = determine_vertices(centre[0], centre[1], radius, n);
+    var midpoints = determine_midpoints(vertices);
+    var contact_points = determine_contact_points(theta, vertices, midpoints, centre, n);
+
+/**
     var centre_x = 250;
     var centre_y = 150;
+    var centre = [centre_x, centre_y];
     var theta = 30;
     var angle = (360 - theta) * (Math.PI/180);
     var vertices = determine_vertices(centre_x,centre_y,75,12);
@@ -68,7 +108,7 @@ $(document).ready(function() {
     var px = (l2_b - l1_b)/(l1_slope - l2_slope);
     var py = l1_slope*px + l1_b;
     var p = [px, py];
-    
+   **/ 
     var motif_path = new fabric.Line([m1[0], m1[1], px, py],
             {
               fill: 'green',
@@ -77,11 +117,6 @@ $(document).ready(function() {
               selectable: false
             }
             );
-
-    console.log("p1: " + p1);
-    console.log("n1: " + n1);
-    console.log("m1: " + m1);
-    console.log("p: " + p);
 
     var m1_circle = new fabric.Circle({
             radius:4,
@@ -132,7 +167,7 @@ $(document).ready(function() {
     **/
     //canvas.add(motif_path);
     var group = new fabric.Group([dodecagon, motif_path]);
-    canvas.add(group);
+    canvas.add(make_motif(group, 12));
    /** 
     // I make the translational unit by cheating and overlapping pg_1 and pg_2.
     var pg_1 = new fabric.Group([dodecagon, triangle]);      
@@ -181,4 +216,21 @@ $(document).ready(function() {
     }
     canvas.add(tiling);
     **/
+    
+    
+    /**
+    function make_motif(partial_motif, n){
+        var theta = 180*(n-2);
+        var motif = new fabric.Group()
+        for(var i = 0; i < n; i++){
+            var tmp_motif = new fabric.Group([partial_motif]);
+            tmp_motif.set({
+                top: 300,
+                angle: 360/i,
+                left: 300
+            })
+            motif.add(tmp_motif)
+        }
+        return motif;
+    }**/
 });
