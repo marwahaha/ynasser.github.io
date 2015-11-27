@@ -47,7 +47,7 @@ $(document).ready(function() {
 
     var centre_x = 250;
     var centre_y = 150;
-    var theta = 0;
+    var theta = 30;
     var angle = (360 - theta) * (Math.PI/180);
     var vertices = determine_vertices(centre_x,centre_y,75,12);
     var midpoints = determine_midpoints(vertices);
@@ -68,7 +68,19 @@ $(document).ready(function() {
     var px = (l2_b - l1_b)/(l1_slope - l2_slope);
     var py = l1_slope*px + l1_b;
     var p = [px, py];
+    
+    var motif_path = new fabric.Line([m1[0], m1[1], px, py],
+            {
+              fill: 'green',
+              stroke: 'green',
+              strokeWidth: 1,
+              selectable: false
+            }
+            );
 
+    console.log("p1: " + p1);
+    console.log("n1: " + n1);
+    console.log("m1: " + m1);
     console.log("p: " + p);
 
     var m1_circle = new fabric.Circle({
@@ -87,14 +99,14 @@ $(document).ready(function() {
     
     var n1_circle = new fabric.Circle({
             radius:4,
-            fill:'black',
+            fill:'orange',
             left:n1[0],
             top:n1[1]
     })
     
     var p_circle = new fabric.Circle({
             radius:4,
-            fill:'black',
+            fill:'green',
             left:px,
             top:py
     })
@@ -111,6 +123,16 @@ $(document).ready(function() {
         fill:'white', 
         stroke:'green',
     })
+    //canvas.add(dodecagon);
+    /**
+    canvas.add(p1_circle);
+    canvas.add(m1_circle);
+    canvas.add(n1_circle);
+    canvas.add(p_circle);
+    **/
+    //canvas.add(motif_path);
+    var group = new fabric.Group([dodecagon, motif_path]);
+    canvas.add(group);
    /** 
     // I make the translational unit by cheating and overlapping pg_1 and pg_2.
     var pg_1 = new fabric.Group([dodecagon, triangle]);      
@@ -126,11 +148,6 @@ $(document).ready(function() {
             angle:360/4
     })
     **/
-    canvas.add(dodecagon);
-    canvas.add(p1_circle);
-    canvas.add(m1_circle);
-    canvas.add(n1_circle);
-    canvas.add(p_circle);
     //canvas.add(circle);
     //canvas.add(pg_2);
     // Everything past this line is concerned with tiling the plane, not PIC.
