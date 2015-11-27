@@ -146,8 +146,14 @@ $(document).ready(function() {
                                strokeWidth: 1,
                                selectable:false
                        });
-       var group = new fabric.Group([polygon, contactLine1, contactLine2]);
-       canvas.add(group);
+       var motif = new fabric.Group([]);
+       for(var i = 0; i < n; i ++){
+               var tmp_group = new fabric.Group([polygon, contactLine1, contactLine2]);
+               console.log(360*i/n);
+               tmp_group.setAngle(360*i/n);
+               motif.add(tmp_group);
+       }
+       canvas.add(motif);
 
     }
     var centre = [250, 150];
