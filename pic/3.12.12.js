@@ -54,31 +54,24 @@ $(document).ready(function() {
        var contact_points = [];
 
        for (var i = 0; i<l; i++){
-            console.log("i is :" + i);
             var p1 = vertices[i%l];
             var m1 = midpoints[i%l];
-            console.log("p1: " + p1); 
-            console.log("m1: " + m1); 
     
             var n1_x = Math.cos(angle) * (p1[0] - m1[0]) - Math.sin(angle) * (p1[1] - m1[1]) + m1[0];
             var n1_y = Math.sin(angle) * (p1[0] - m1[0]) + Math.cos(angle) * (p1[1] - m1[1]) + m1[1];
             var n1 = [n1_x, n1_y];
-            console.log("n1: " + n1);
 
             var l1_slope = (n1_y-m1[1])/(n1_x-m1[0]);
             var l1_b = n1_y - (l1_slope)*n1_x;
             var l1 = [l1_slope, l1_b];
-            console.log("l1: " + l1);
             
             var l2_slope = (centre_y - p1[1])/(centre_x - p1[0]);
             var l2_b = centre_y - (l2_slope)*centre_x;
             var l2 = [l2_slope, l2_b];
-            console.log("l2: " + l2);
                 
             var px = (l2_b - l1_b)/(l1_slope - l2_slope);
             var py = l1_slope*px + l1_b;
             var p = [px, py];
-            console.log("p is: "+ p);
             contact_points.push(p);
             
             var vertex_circle = new fabric.Circle({
@@ -122,12 +115,10 @@ $(document).ready(function() {
        var l1_slope = (n1_y-m1[1])/(n1_x-m1[0]);
        var l1_b = n1_y - (l1_slope)*n1_x;
        var l1 = [l1_slope, l1_b];
-       console.log("l1: " + l1);
        
        var l2_slope = (centre_y - p1[1])/(centre_x - p1[0]);
        var l2_b = centre_y - (l2_slope)*centre_x;
        var l2 = [l2_slope, l2_b];
-       console.log("l2: " + l2);
         
        var px = (l2_b - l1_b)/(l1_slope - l2_slope);
        var py = l1_slope*px + l1_b;
@@ -146,15 +137,17 @@ $(document).ready(function() {
                                strokeWidth: 1,
                                selectable:false
                        });
-       var motif = new fabric.Group([]);
-       for(var i = 0; i < n; i ++){
+       
+       // I am not sure why, but motif1 has to be here ... ¯\_(ツ)_/¯ 
+       var motif1 = new fabric.Group([polygon, contactLine1, contactLine2]);
+       
+       var motif = new fabric.Group();
+       for(var i = 0; i <= n; i++){
                var tmp_group = new fabric.Group([polygon, contactLine1, contactLine2]);
-               console.log(360*i/n);
                tmp_group.setAngle(360*i/n);
                motif.add(tmp_group);
        }
-       canvas.add(motif);
-
+       return motif;
     }
     var centre = [250, 150];
     var theta = 60;
@@ -164,12 +157,12 @@ $(document).ready(function() {
     var midpoints = determine_midpoints(vertices);
     var dodecagon = make_regular_polygon(centre[0], centre[1], radius, n);
     dodecagon.set({
-        fill:'white',
+        fill:"rgba(124,240,10,0)",
         stroke:'green',
     })
-    make_motif(dodecagon, theta, vertices, midpoints, centre, n)
-
-    //var contact_points = determine_contact_points(theta, vertices, midpoints, centre, n);
+    var motif = make_motif(dodecagon, theta, vertices, midpoints, centre, n)
+    canvas.add(motif);
+    canvas.centerObject(motif);
 
 /**
     var centre_x = 250;
