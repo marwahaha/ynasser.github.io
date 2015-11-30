@@ -47,6 +47,7 @@ $(document).ready(function() {
 
     function determine_contact_points(theta, vertices, midpoints, centre, n){
        // Now that I've discovered .setAngle, I don't need this function anymore.
+       // There is also the rogue slope calculation somewhere.
        var centre_x = centre[0];
        var centre_y = centre[1];
        var angle = (360-theta) * (Math.PI/180);
@@ -73,29 +74,6 @@ $(document).ready(function() {
             var py = l1_slope*px + l1_b;
             var p = [px, py];
             contact_points.push(p);
-            
-            var vertex_circle = new fabric.Circle({
-                    radius:4,
-                    fill:'yellow',
-                    left:p1[0],
-                    top:p1[1]
-            })
-            var m_circle = new fabric.Circle({
-                    radius:4,
-                    fill:'red',
-                    left:m1[0],
-                    top:m1[1]
-            })
-            var p_circle = new fabric.Circle({
-                    radius:4,
-                    fill:'green',
-                    left:px,
-                    top:py
-            })
-
-            canvas.add(vertex_circle);
-            canvas.add(m_circle);
-            canvas.add(p_circle);
        }
       return contact_points; 
     }
@@ -149,85 +127,23 @@ $(document).ready(function() {
        }
        return motif;
     }
-    var centre = [250, 150];
-    var theta = 60;
-    var radius = 75;
-    var n = 12;
+    var centre = [0, 0];
+    var theta = 40;
+    var radius = 450;
+    var n = 25;
     var vertices = determine_vertices(centre[0], centre[1], radius, n);
     var midpoints = determine_midpoints(vertices);
     var dodecagon = make_regular_polygon(centre[0], centre[1], radius, n);
     dodecagon.set({
-        fill:"rgba(124,240,10,0)",
+        fill:"rgba(0,0,0,0)",
+        //fill:"rgba(124,240,10,0)",
         stroke:'green',
+        strokeWidth:1,
     })
     var motif = make_motif(dodecagon, theta, vertices, midpoints, centre, n)
     canvas.add(motif);
-    canvas.centerObject(motif);
+   // canvas.centerObject(motif);
 
-/**
-    var centre_x = 250;
-    var centre_y = 150;
-    var centre = [centre_x, centre_y];
-    var theta = 30;
-    var angle = (360 - theta) * (Math.PI/180);
-    var vertices = determine_vertices(centre_x,centre_y,75,12);
-    var midpoints = determine_midpoints(vertices);
-
-    var p1 = vertices[0];
-    var m1 = midpoints[0];
-
-    var n1_x = Math.cos(angle) * (p1[0] - m1[0]) - Math.sin(angle) * (p1[1] - m1[1]) + m1[0];
-    var n1_y = Math.sin(angle) * (p1[0] - m1[0]) + Math.cos(angle) * (p1[1] - m1[1]) + m1[1];
-    var n1 = [n1_x, n1_y];
-   
-    var l1_slope = (n1_y-m1[1])/(n1_x-m1[0]);
-    var l1_b = n1_y - (l1_slope)*n1_x;
-
-    var l2_slope = (centre_y - p1[1])/(centre_x - p1[0]);
-    var l2_b = centre_y - (l2_slope)*centre_x;
-        
-    var px = (l2_b - l1_b)/(l1_slope - l2_slope);
-    var py = l1_slope*px + l1_b;
-    var p = [px, py];
-   **/
-    /**
-    var motif_path = new fabric.Line([m1[0], m1[1], px, py],
-            {
-              fill: 'green',
-              stroke: 'green',
-              strokeWidth: 1,
-              selectable: false
-            }
-            );
-
-    var m1_circle = new fabric.Circle({
-            radius:4,
-            fill:'red',
-            left:m1[0],
-            top:m1[1]
-    })
-    
-    var p1_circle = new fabric.Circle({
-            radius:4,
-            fill:'black',
-            left:p1[0],
-            top:p1[1]
-    })
-    
-    var n1_circle = new fabric.Circle({
-            radius:4,
-            fill:'orange',
-            left:n1[0],
-            top:n1[1]
-    })
-    
-    var p_circle = new fabric.Circle({
-            radius:4,
-            fill:'green',
-            left:px,
-            top:py
-    })
-    **/
     // 3.12.12
     
     var triangle = make_regular_polygon(132,80,23,3);
@@ -235,16 +151,6 @@ $(document).ready(function() {
         fill:'white', 
         stroke:'green',
     })
-    //canvas.add(dodecagon);
-    /**
-    canvas.add(p1_circle);
-    canvas.add(m1_circle);
-    canvas.add(n1_circle);
-    canvas.add(p_circle);
-    **/
-    //canvas.add(motif_path);
-    //var group = new fabric.Group([dodecagon, motif_path]);
-    //canvas.add(make_motif(group, 12));
    /** 
     // I make the translational unit by cheating and overlapping pg_1 and pg_2.
     var pg_1 = new fabric.Group([dodecagon, triangle]);      
@@ -293,21 +199,4 @@ $(document).ready(function() {
     }
     canvas.add(tiling);
     **/
-    
-    
-    /**
-    function make_motif(partial_motif, n){
-        var theta = 180*(n-2);
-        var motif = new fabric.Group()
-        for(var i = 0; i < n; i++){
-            var tmp_motif = new fabric.Group([partial_motif]);
-            tmp_motif.set({
-                top: 300,
-                angle: 360/i,
-                left: 300
-            })
-            motif.add(tmp_motif)
-        }
-        return motif;
-    }**/
 });
