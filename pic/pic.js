@@ -2,11 +2,19 @@ $(document).ready(function() {
     // 3.12.12, 4.6.12, 4.8.8, 6.6.6, and rosette dual tilings 10RD and 8RD
     function main(){
         var theta = document.getElementById("theta").value;
-        console.log(theta);
         var e = document.getElementById("tiling_selection");
         var tiling = e.options[e.selectedIndex].value;
 
-        console.log(tiling);
+        if (tiling == "4_6_12"){
+                render_4_6_12(theta);
+        } else if (tiling == "4_8_8"){
+                render_4_8_8(theta);
+        } else if (tiling == "6_6_6"){
+                render_6_6_6(theta);
+        } else {
+                alert("Not implemented yet!");
+        }
+    
     }
 
     function make_regular_polygon(x,y,r,n,print_coords = false){
@@ -133,80 +141,52 @@ $(document).ready(function() {
        }
        return motif;
     }
-    
+   
+    function render_6_6_6(theta){
+            canvas.clear();
+            var centre = [0,0];
+            var n = 6;
+            var radius = 75;
+            var vertices = determine_vertices(centre[0], centre[1], radius, n);
+            var midpoints = determine_midpoints(vertices);
+            var hexagon = make_regular_polygon(centre[0], centre[1], radius, n);
+            hexagon.set({
+                fill:"rgba(0,0,0,0)",
+                //fill:"rgba(124,240,10,0)",
+                stroke:'green',
+                strokeWidth:1,
+            })
+            var motif = make_motif(hexagon, theta, vertices, midpoints, centre, n)
+            var column = new fabric.Group();
+            
+            for (var k = -3; k < 7; k++){
+                    var tmp_group_0 = new fabric.Group([motif]);
+                    tmp_group_0.set({
+                            left:100,
+                            top:129*k
+                    });
+                    var tmp_group_1 = new fabric.Group([motif]);
+                    tmp_group_1.set({
+                            left:213.5,
+                            top:64.5+129*k
+                    });
+                    column.add(tmp_group_0);
+                    column.add(tmp_group_1);
+            }
+            
+            var plane = new fabric.Group();
+            for (var j = -3; j < 10; j++){
+                    var tmp_group = new fabric.Group([column]);
+                    tmp_group.set({
+                            left:227*j,
+                            top:100
+                    });
+                plane.add(tmp_group);
+            }
+            canvas.add(plane);
+    }
+
     $("#button").click(function() { main(); } );
     var canvas = new fabric.StaticCanvas('c');
 
-    var centre = [0, 0];
-    var theta = 40;
-    var radius = 450;
-    var n = 25;
-    var vertices = determine_vertices(centre[0], centre[1], radius, n);
-    var midpoints = determine_midpoints(vertices);
-    var dodecagon = make_regular_polygon(centre[0], centre[1], radius, n);
-    dodecagon.set({
-        fill:"rgba(0,0,0,0)",
-        //fill:"rgba(124,240,10,0)",
-        stroke:'green',
-        strokeWidth:1,
-    })
-    var motif = make_motif(dodecagon, theta, vertices, midpoints, centre, n)
-    canvas.add(motif);
-   // canvas.centerObject(motif);
-
-    // 3.12.12
-    
-    var triangle = make_regular_polygon(132,80,23,3);
-    triangle.set({
-        fill:'white', 
-        stroke:'green',
-    })
-   /** 
-    // I make the translational unit by cheating and overlapping pg_1 and pg_2.
-    var pg_1 = new fabric.Group([dodecagon, triangle]);      
-    var pg_2 = new fabric.Group([dodecagon, triangle]);
-    pg_1.set({
-            top:100,
-            left:145,
-            angle:360/12,
-    })
-    pg_2.set({
-            top:146.7,
-            left:279,
-            angle:360/4
-    })
-    **/
-    //canvas.add(circle);
-    //canvas.add(pg_2);
-    // Everything past this line is concerned with tiling the plane, not PIC.
-    /**
-    // making a stack of translational units, so I translate them horizontally ... if this library's
-    // documentation wasn't impossible to read, I could have just used vectors.
-    // Note to self: the column is actually "two columns"
-    var column = new fabric.Group();
-    for (var k = -3; k<7; k++){
-            var temp_group_left = new fabric.Group([pg_1, pg_2]);      
-            temp_group_left.set({
-                left:300,
-                top:-101+(146*k)
-            });
-
-            var temp_group_right = new fabric.Group([pg_1, pg_2]);       
-            temp_group_right.set({
-                left:425,
-                top:-174+(146*k)
-            });
-            column.add(temp_group_left, temp_group_right);
-    }
-    // Finally putting everything together!
-    var tiling = new fabric.Group();
-    for (var j = -3; j < 4; j++){
-            var tg = new fabric.Group([column]);
-            tg.set({
-               left:250*j,
-            });
-            tiling.add(tg);
-    }
-    canvas.add(tiling);
-    **/
 });
