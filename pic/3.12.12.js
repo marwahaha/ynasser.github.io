@@ -3,6 +3,12 @@ $(document).ready(function() {
 
     var canvas = new fabric.StaticCanvas('c');
 
+    function main(){
+        var theta = document.getElementById("theta").value;
+        var e = document.getElementById("tiling_selection");
+        var tiling = e.options[e.selectedIndex].value;
+    }
+
     function make_regular_polygon(x,y,r,n,print_coords = false){
         var shape = "";
         
