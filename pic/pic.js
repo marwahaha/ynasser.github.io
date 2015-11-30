@@ -1,6 +1,10 @@
 $(document).ready(function() {	
-    // 3.12.12, 4.6.12, 4.8.8, 6.6.6, and rosette dual tilings 10RD and 8RD
-    function main(){
+   // praise to the calculator gods: http://www.calculatorsoup.com/calculators/geometry-plane/polygon.php 
+        
+   function main(){
+        
+        canvas.clear();
+        
         var theta = document.getElementById("theta").value;
         var e = document.getElementById("tiling_selection");
         var tiling = e.options[e.selectedIndex].value;
@@ -143,7 +147,6 @@ $(document).ready(function() {
     }
    
     function render_6_6_6(theta){
-            canvas.clear();
             var centre = [0,0];
             var n = 6;
             var radius = 75;
@@ -182,6 +185,88 @@ $(document).ready(function() {
                             top:100
                     });
                 plane.add(tmp_group);
+            }
+            canvas.add(plane);
+    }
+
+    function render_4_8_8(theta){
+            // making the square:
+            var centre = [0,0];
+            var n = 4;
+            var radius = 75; //sidelength = 106.666
+            var vertices = determine_vertices(centre[0], centre[1], radius, n);
+            var midpoints = determine_midpoints(vertices);
+            var square = make_regular_polygon(centre[0], centre[1], radius, n);
+            square.set({
+                fill:"rgba(0,0,0,0)",
+                stroke:'white',
+                strokeWidth:1,
+            })
+            var square_motif = make_motif(square, theta, vertices, midpoints, centre, n)
+            
+                    
+            // making the octagon
+            var centre = [0,0];
+            var n = 8;
+            var radius = 139.366;
+            var vertices = determine_vertices(centre[0], centre[1], radius, n);
+            var midpoints = determine_midpoints(vertices);
+            var octagon = make_regular_polygon(centre[0], centre[1], radius, n);
+            octagon.set({
+                fill:"rgba(0,0,0,0)",
+                stroke:'white',
+                strokeWidth:1,
+            })
+            var octagon_motif = make_motif(octagon, theta, vertices, midpoints, centre, n)
+            
+            var octagon_1 = new fabric.Group([octagon_motif])
+            octagon_1.set({
+                    left:100,
+                    top:200
+            })
+            octagon_1.setAngle(45/2);
+            
+            var square_1 = new fabric.Group([square_motif])
+            square_1.set({
+                    left:282,
+                    top:200
+            })
+            square_1.setAngle(45);
+            
+            var square_2 = new fabric.Group([square_motif])
+            square_2.set({
+                    left:100,
+                    top:19
+            })
+            square_2.setAngle(45);
+
+            var translational_unit = new fabric.Group([octagon_1, square_1, square_2]);
+
+            var column = new fabric.Group();
+            for (var k = -1; k < 3; k++){
+                    var tmp_group_0 = new fabric.Group([translational_unit]);
+                    tmp_group_0.set({
+                            left:100,
+                            top:364.5*k
+                    });
+                    
+                    var tmp_group_1 = new fabric.Group([translational_unit]);
+                    tmp_group_1.set({
+                            left:282,
+                            top:182+364.5*k
+                    });
+                    column.add(tmp_group_0);
+                    column.add(tmp_group_1);
+            }
+            
+            var plane = new fabric.Group();
+            for (var j = -2; j < 4; j++){
+                    var tmp_group = new fabric.Group([column]);
+                    tmp_group.set({
+                            left:364.5*j,
+                            top:96
+                    });
+                    plane.add(tmp_group);
             }
             canvas.add(plane);
     }
