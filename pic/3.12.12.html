@@ -10,12 +10,12 @@
         <div id="canvas" style="position:absolute; top:50px; left:60px; background-color:white">
             <canvas id="c" width=1000px height=600px top=50px style="border:1px solid black;"></canvas>
         </div>
-        <div id="tiling_selection" style="position:absolute; top:60px; left: 1100px"/>
-            <select>
-                <option value="3.12.12">3.12.12</option>
-                <option value="4.6.12">4.6.12</option>
-                <option value="4.8.8">4.8.8</option>
-                <option value="6.6.6">6.6.6</option>
+        <div id="tiling_dropdown" style="position:absolute; top:60px; left: 1100px"/>
+            <select id="tiling_selection">
+                <option value="3_12_12">3.12.12</option>
+                <option value="4_6_12">4.6.12</option>
+                <option value="4_8_8">4.8.8</option>
+                <option value="6_6_6">6.6.6</option>
                 <option value="10RD">Rosette dual tiling 10RD</option>
                 <option value="8RD">Rosette dual tiling 8RD</option>
             </select>
@@ -24,7 +24,15 @@
             <input type="text" name="theta" id="theta" placeholder="theta(0-90)"/>
         </div>
         <div id="button" style="position:absolute; top:100px; left: 1350px"/>
-            <button onclick="main()">Calculate!</button>
+            <button>Calculate!</button>
+        </div>
+        <div id="todo" style="position:absolute; top:130px; left: 1100px"/>
+            <p> TODO:
+                <ul>
+                    <li> different rendering modes </li>
+                    <li> a slider to fade out the polygons </li>
+                </ul>
+            </p>
         </div>
     </body>
 </html>

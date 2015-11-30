@@ -1,12 +1,12 @@
 $(document).ready(function() {	
     // 3.12.12, 4.6.12, 4.8.8, 6.6.6, and rosette dual tilings 10RD and 8RD
-
-    var canvas = new fabric.StaticCanvas('c');
-
     function main(){
         var theta = document.getElementById("theta").value;
+        console.log(theta);
         var e = document.getElementById("tiling_selection");
         var tiling = e.options[e.selectedIndex].value;
+
+        console.log(tiling);
     }
 
     function make_regular_polygon(x,y,r,n,print_coords = false){
@@ -133,6 +133,10 @@ $(document).ready(function() {
        }
        return motif;
     }
+    
+    $("#button").click(function() { main(); } );
+    var canvas = new fabric.StaticCanvas('c');
+
     var centre = [0, 0];
     var theta = 40;
     var radius = 450;
