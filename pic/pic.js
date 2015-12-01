@@ -272,7 +272,7 @@ $(document).ready(function() {
     }
 
     $("#button").click(function() { main(); } );
-    $("#theta-input").keypress(function(e) { if (e.which == 10 || e.which == 13) { main(); } });
+    $("#theta_input").keypress(function(e) { if (e.which == 10 || e.which == 13) { main(); } });
     var canvas = new fabric.StaticCanvas('c');
 
 });
