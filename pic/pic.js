@@ -189,6 +189,61 @@ $(document).ready(function() {
             canvas.add(plane);
     }
 
+    function render_4_6_12(theta){
+        // making the dodecagon
+        var centre = [0,0];
+        var n = 12;
+        var radius = 75; // a = 38.8229
+        var vertices = determine_vertices(centre[0], centre[1], radius, n);
+        var midpoints = determine_midpoints(vertices);
+        var dodecagon = make_regular_polygon(centre[0], centre[1], radius, n);
+        dodecagon.set({
+            fill:"rgba(0,0,0,0)",
+            stroke:'green',
+            strokeWidth:1,
+        })
+        var dodecagon_motif = make_motif(dodecagon, theta, vertices, midpoints, centre, n)
+        var dodecagon = new fabric.Group([dodecagon]);
+
+        canvas.add(dodecagon_motif);
+        // making the squares (3)
+        // square's radius must be 27.4519, b/c the dodecagon's side length is 38.8229
+        var centre = [0,0];
+        var n = 4;
+        var radius = 27.4519;
+        var vertices = determine_vertices(centre[0], centre[1], radius, n);
+        var midpoints = determine_midpoints(vertices);
+        var square_1 = make_regular_polygon(centre[0], centre[1], radius, n);
+        square_1.set({
+            fill:"rgba(0,0,0,0)",
+            stroke:'green',
+            strokeWidth:1,
+        })
+        var square_motif_1 = make_motif(square, theta, vertices, midpoints, centre, n)
+        var square_1 = new fabric.Group([square_motif_1]);
+
+        var square_2 = make_regular_polygon(centre[0], centre[1], radius, n);
+        square_2.set({
+            fill:"rgba(0,0,0,0)",
+            stroke:'green',
+            strokeWidth:1,
+        })
+        var square_motif_2 = make_motif(square, theta, vertices, midpoints, centre, n)
+        var square_2 = new fabric.Group([square_motif_2]);
+        
+        var square_3 = make_regular_polygon(centre[0], centre[1], radius, n);
+        square_3.set({
+            fill:"rgba(0,0,0,0)",
+            stroke:'green',
+            strokeWidth:1,
+        })
+        var square_motif_3 = make_motif(square, theta, vertices, midpoints, centre, n)
+        var square_3 = new fabric.Group([square_motif_3]);
+        
+        // making the hexagons (3)
+        // var radius = 38.8229;
+      }
+
     function render_4_8_8(theta){
             // making the square:
             var centre = [0,0];
@@ -199,7 +254,7 @@ $(document).ready(function() {
             var square = make_regular_polygon(centre[0], centre[1], radius, n);
             square.set({
                 fill:"rgba(0,0,0,0)",
-                stroke:'white',
+                stroke:'green',
                 strokeWidth:1,
             })
             var square_motif = make_motif(square, theta, vertices, midpoints, centre, n)
@@ -214,7 +269,7 @@ $(document).ready(function() {
             var octagon = make_regular_polygon(centre[0], centre[1], radius, n);
             octagon.set({
                 fill:"rgba(0,0,0,0)",
-                stroke:'white',
+                stroke:'green',
                 strokeWidth:1,
             })
             var octagon_motif = make_motif(octagon, theta, vertices, midpoints, centre, n)
