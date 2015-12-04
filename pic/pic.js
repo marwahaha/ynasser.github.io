@@ -8,17 +8,23 @@ $(document).ready(function() {
         var theta = document.getElementById("theta").value;
         var e = document.getElementById("tiling_selection");
         var tiling = e.options[e.selectedIndex].value;
+        var display_base = document.getElementById("checkbox").checked;
+        
+        if (display_base == true){
+            var stroke_colour = "green";
+        } else {
+            var stroke_colour = "white";
+        }
 
         if (tiling == "4_6_12"){
-                render_4_6_12(theta);
+                render_4_6_12(theta);//, display_base);
         } else if (tiling == "4_8_8"){
-                render_4_8_8(theta);
+                render_4_8_8(theta, stroke_colour);
         } else if (tiling == "6_6_6"){
-                render_6_6_6(theta);
+                render_6_6_6(theta, stroke_colour);
         } else {
                 alert("Not implemented yet!");
         }
-    
     }
 
     function make_regular_polygon(x,y,r,n,print_coords = false){
@@ -146,17 +152,18 @@ $(document).ready(function() {
        return motif;
     }
    
-    function render_6_6_6(theta){
+    function render_6_6_6(theta, stroke_colour){
             var centre = [0,0];
             var n = 6;
             var radius = 75;
             var vertices = determine_vertices(centre[0], centre[1], radius, n);
             var midpoints = determine_midpoints(vertices);
             var hexagon = make_regular_polygon(centre[0], centre[1], radius, n);
+
+
             hexagon.set({
                 fill:"rgba(0,0,0,0)",
-                //fill:"rgba(124,240,10,0)",
-                stroke:'green',
+                stroke: stroke_colour,
                 strokeWidth:1,
             })
             var motif = make_motif(hexagon, theta, vertices, midpoints, centre, n)
@@ -244,7 +251,7 @@ $(document).ready(function() {
         // var radius = 38.8229;
       }
 
-    function render_4_8_8(theta){
+    function render_4_8_8(theta, stroke_colour){
             // making the square:
             var centre = [0,0];
             var n = 4;
@@ -254,11 +261,10 @@ $(document).ready(function() {
             var square = make_regular_polygon(centre[0], centre[1], radius, n);
             square.set({
                 fill:"rgba(0,0,0,0)",
-                stroke:'green',
+                stroke: stroke_colour,
                 strokeWidth:1,
             })
             var square_motif = make_motif(square, theta, vertices, midpoints, centre, n)
-            
                     
             // making the octagon
             var centre = [0,0];
@@ -269,7 +275,7 @@ $(document).ready(function() {
             var octagon = make_regular_polygon(centre[0], centre[1], radius, n);
             octagon.set({
                 fill:"rgba(0,0,0,0)",
-                stroke:'green',
+                stroke:stroke_colour,
                 strokeWidth:1,
             })
             var octagon_motif = make_motif(octagon, theta, vertices, midpoints, centre, n)
@@ -328,6 +334,9 @@ $(document).ready(function() {
 
     $("#button").click(function() { main(); } );
     $("#theta_input").keypress(function(e) { if (e.which == 10 || e.which == 13) { main(); } });
+    $('#checkbox').click(function(){
+        main();
+    });
     var canvas = new fabric.StaticCanvas('c');
 
 });
