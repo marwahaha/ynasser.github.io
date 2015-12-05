@@ -19,9 +19,11 @@
                 <option value="10RD">Rosette dual tiling 10RD</option>
                 <option value="8RD">Rosette dual tiling 8RD</option>-->
             </select>
+            &lt;-- Pick a tiling.
+
         </div>
         <div id="theta_input" style="position:absolute; top:100px; left:1100px"/>
-            <input type="text" name="theta" id="theta" placeholder="theta(0-90)"/>
+            <input type="text" name="theta" id="theta" placeholder="theta(0-90)"/> 
         </div>
         <div id="button" style="position:absolute; top:100px; left: 1350px"/>
             <button>Calculate!</button>
@@ -29,7 +31,7 @@
         <div id="display-tiling" style="position:absolute; top:130px; left: 1100px"/>
                 <input id="checkbox" type="checkbox" value="true" checked/>Display base tiling?  
         </div>
-        <div id="todo" style="position:absolute; top:140px; left: 1100px"/>
+        <div id="todo" style="position:absolute; top:300px; left: 1100px"/>
             <p> TODO:
                 <ul>
                     <li> different rendering modes </li>
@@ -37,6 +39,11 @@
                     <li> figure out problems with stroke width </li>
                 </ul>
             </p>
+        </div>
+        <div id="explanation" style="position:absolute; top:150px; left:1100px">
+            <h1>What is this?</h1>
+            <p>This is an implementation of Hankin's <i>Polygons in Contact</i> algorithm, which generates Islamic star patterns from tesselations. 
+            <a href="http://www.cgl.uwaterloo.ca/~csk/papers/kaplan_gi2005.pdf" target="_blank">Here is an excellent paper which explains it.</a></p>
         </div>
     </body>
 </html>
