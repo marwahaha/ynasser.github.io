@@ -27,7 +27,7 @@ $(document).ready(function() {
         }
     }
 
-    function make_regular_polygon(x,y,r,n,print_coords = false){
+    function make_regular_polygon(x,y,r,n,print_coords){
         var shape = "";
         
         for (i = 0; i < n; i++) {
