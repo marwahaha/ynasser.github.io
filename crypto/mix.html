@@ -20,7 +20,7 @@ MathJax.Hub.Config({
 -->
 
 <h1>
-    <center>The Basics of Mix Networks</center>
+    <center>The Basics of Mix Networks (WIP)</center>
 </h1>
 
 <center>
@@ -61,14 +61,16 @@ Suppose you encrypt some message $X$ $K_{pub}(X)$ and someone intercepts your me
 The cryptosystem also includes a computer called a mix which is responsible for processing all mail before it's delivered. The mix is responsible for trying to hide relationship between messages it receives and messages it outputs.<!-- fix this -->
 </p>
 <p>
-Suppose you want to send a message $M$ to another user at address $A$ whose public key is $K_{a}$. You must first pass this message to the mixer (whose public key is $K_1$), who will forward it to destination $A$ on your behalf. Let $\rightarrow$ denote how messages are input and output from a mix. Everything on the left of $\rightarrow$ is input, and everything on the right is output. Thus, we have: $$K_1(R_1,K_a(R_0,M),A) \rightarrow K_a(R_0,M)$$.
+Suppose you want to send a message $M$ to another user at address $A$ whose public key is $K_{a}$. You must first pass this message to the mixer (whose public key is $K_1$), who will forward it to destination $A$ on your behalf. Let $\rightarrow$ denote how messages are input and output from a mix. Everything on the left of $\rightarrow$ is input, and everything on the right is output. Thus, we have: $$K_1(R_1,K_a(R_0,M),A) \rightarrow K_a(R_0,M).$$
 </p>
 
 <p>
-As the mix's purpose is to disassociate input with output, there are several things which could go wrong here:
+TODO: processing happens in batches ... <br>
+
+As the mix's purpose is to disassociate input with output, there are several technicalities we need to consider:
 <ol>
-    <li></li>
-    <li></li>
+    <li>Disassociating the input and output orders. It won't do if the mix simples follows the "first in, first out" principle. This is fixed by "outputting uniformly sized items in lexicographically ordered batches." (page 85) TODO </li><!-- this makes no sense! also -->
+    <li>What if inputs are repeated? Then it's not hard to figure out which output corresponded to it. Thus, the mix must take care to not process redundant copies.<!-- Why isn't it enough to just pad it more and add more randomness?--></li>
 </ol>
 
 </p>
