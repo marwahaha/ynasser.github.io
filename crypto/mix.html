@@ -1,0 +1,78 @@
+<html>
+<head>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+</head>
+<body>
+
+<!-- TODO
+1. Setup mathjax
+2. Figure out footnotes (ask chris for his)?
+3. Figure out citations (and then really figure out citations)
+4. make link open in a new tab
+-->
+
+<h1>
+    <center>The Basics of Mix Networks</center>
+</h1>
+
+<center>
+(This is a summary of Chaum's 1981 paper <a href="http://www.csl.mtu.edu/cs6461/www/Reading/08/Chaum-ACMCOMM81.pdf"><i>Untraceable Electronic Mail, Return Addresses, and Digital Pseudonyms</i></a>.)
+</center>
+<br>
+<br>
+
+<b>Introduction</b>
+<br>
+<br>
+There is a well-known problem in cryptography called the <i>traffic analysis problem</i>. We want to be able to, in some kind of network, keep confidential:
+<ol>
+    <li> who converses with whom, and </li>
+    <li> when they each converse.</li>
+</ol>
+... and we want to do this without putting too much (or ideally <i>any</i>) trust into some central authority. We are going to walk through a solution involving nothing more than basic public key cryptography.
+<br>
+<br>
+<b>Notation and overview of public key cryptography</b>
+<br>
+<br>
+<i>This will just be a very quick overview. If you aren't familiar with the basics of public key cryptography, I suggest reading <a href="">this</a>.</i>
+<br>
+<p>Each user in the system is responsible for generating a public key $K_{pub}$ (which is shared with everyone else) and a private key $K_{priv}$ (which is kept secret). Recall that given a message $M$, we have $k_{priv}(k_{pub}(M))=M=K_{pub}(K_{priv}(M))$.
+<br>
+<br>
+Suppose you encrypt some message $X$ $K_{pub}(X)$ and someone intercepts your message and makes a guess as to the encrypted message $Y$. They can simply check $K_{pub}(X)=K_{pub}(Y)$ to see if their guess is correct. Thus, messages are padded with random bits to prevent adversaries from guessing the contents of your message. PUT OTHER STUFF HERE.
+</p>
+<b>Assumptions</b>
+<ol>
+    <li>No one can decrypt messages or create forgeries without $K_{priv}$.</li>
+    <li>Everyone can see where the messages on the network came from, where they're going, and their "representation". Also, anyone can add in extra messages, remove existing messages, or modify them.</li>
+</ol>
+<b>Mail System</b>
+<br>
+<p>
+The cryptosystem also includes a computer called a mix which is responsible for processing all mail before it's delivered. The mix is responsible for trying to hide relationship between messages it receives and messages it outputs.<!-- fix this -->
+</p>
+<p>
+Suppose you want to send a message $M$ to another user at address $A$ whose public key is $K_{a}$. You must first pass this message to the mixer (whose public key is $K_1$), who will forward it to destination $A$ on your behalf. Let $\rightarrow$ denote how messages are input and output from a mix. Everything on the left of $\rightarrow$ is input, and everything on the right is output. Thus, we have: $$K_1(R_1,K_a(R_0,M),A) \rightarrow K_a(R_0,M)$$.
+</p>
+
+<p>
+As the mix's purpose is to disassociate input with output, there are several things which could go wrong here:
+<ol>
+    <li></li>
+    <li></li>
+</ol>
+
+</p>
+
+
+</body>
+</html>
