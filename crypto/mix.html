@@ -48,7 +48,7 @@ There is a well-known problem in cryptography called the <i>traffic analysis pro
 <p>Each user in the system is responsible for generating a public key $K_{pub}$ (which is shared with everyone else) and a private key $K_{priv}$ (which is kept secret). Recall that given a message $M$, we have $k_{priv}(k_{pub}(M))=M=K_{pub}(K_{priv}(M))$.
 <br>
 <br>
-Suppose you encrypt some message $X$ $K_{pub}(X)$ and someone intercepts your message and makes a guess as to the encrypted message $Y$. They can simply check $K_{pub}(X)=K_{pub}(Y)$ to see if their guess is correct. Thus, messages are padded with random bits to prevent adversaries from guessing the contents of your message. PUT OTHER STUFF HERE.
+Suppose you encrypt some message $X$ such that we have $K_{pub}(X)$. Now, suppose someone intercepts your message and makes a guess as to the encrypted message $Y$. They can simply check $K_{pub}(X)=K_{pub}(Y)$ to see if their guess is correct. Thus, messages are padded with random bits to prevent adversaries from guessing the contents of your message. PUT OTHER STUFF HERE.
 </p>
 <b>Assumptions</b>
 <ol>
@@ -65,16 +65,44 @@ Suppose you want to send a message $M$ to another user at address $A$ whose publ
 </p>
 
 <p>
-TODO: processing happens in batches ... <br>
+TODO: processing happens in SIGNED batches ... <br>
 
 As the mix's purpose is to disassociate input with output, there are several technicalities we need to consider:
 <ol>
-    <li>Disassociating the input and output orders. It won't do if the mix simples follows the "first in, first out" principle. This is fixed by "outputting uniformly sized items in lexicographically ordered batches." (page 85) TODO </li><!-- this makes no sense! also -->
-    <li>What if inputs are repeated? Then it's not hard to figure out which output corresponded to it. Thus, the mix must take care to not process redundant copies.<!-- Why isn't it enough to just pad it more and add more randomness?--></li>
+    <li>Disassociating the input and output orders. It won't do if the mix simples follows the "first in, first out" principle. This is fixed by "outputting uniformly sized items in lexicographically ordered batches." (page 85) TODO </li><!-- this makes no sense! also ... mention assumption #1-->
+    <li>What if inputs are repeated? Then it's not hard to figure out which output corresponded to it. Thus, the mix must take care to not process redundant copies. By "redundant", we mean both similar inputs to the mix and ones that the mix unpacks. <!-- is this correct? --></li>
 </ol>
+
+What about repeats across batches (because random strings $R_1$ and so aren't being used or used properly)? Then the mix will need to keep a record of what it has process in the past. Records can be discarded when the mix switches public keys. <!-- which it announces along with a signed copy of its new key with it's old one -->
+</p>
+<p>
+Optionally, the mix can provide users who give it input with receipts. That way if the mix fails to output the data they passed to it, they can use the receipt as proof. Let $Y$ be the receipt supplied to a user whose message was not output by the mix. We have $$Y = K_{1,priv}(C,K_1(R_1,K_a(R_0,M),A))),$$
+and the missing output is $$X=(K_a(R_0,M),A),$$ and the random string $R_1$ such that $$K_1(Y) = C, K_1(R_1, X). (THIS IS WRONG)$$
+</p>
+<br>
+<b>Cascades</b>
+<p>
+From here on out, we refer to a series of mixes as a <b>cascade</b>. Notice that if we want to prove some mix in the cascade dropped a user's message, we only need the receipt the user got back from the first mix in the system. EXPLAIN MORE HERE. 
+</p>
+
+<p>
+If a message $M$ is to go through $n$ mixes, then the message is prepared by being successively sealed for each mix in the cascade: $$K_n(R_n, K_{n-1}(R_{n-1}, ..., K_2(R_2(K_1(R_1,K_a(R_0,M),A)) ... )).$$ <!-- TODO: make a diagram and put it here. -->
+
+When the first mix processes the input, it will ouput $$ $$ and send it to the second mix, and so on until $K_a(R_0,M)$ is delivered to address $A$.
+</p>
+<br>
+<b>Return addresses</b>
+<p> So we can now send messages anonymously to someone, but how can they reply if our identity was never revealed to them? Suppose that $x$ sent $y$ a message, and $y$ now wants to respond.
 
 </p>
 
+<br>
+<b>Digital pseudonyms</b>
+<br>
+
+<br>
+<b>General purpose mail systems</b>
+<br>
 
 </body>
 </html>
