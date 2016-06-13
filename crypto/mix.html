@@ -92,9 +92,11 @@ When the first mix processes the input, it will ouput $$ $$ and send it to the s
 </p>
 <br>
 <b>Return addresses</b>
-<p> So we can now send messages anonymously to someone, but how can they reply if our identity was never revealed to them? Suppose that $x$ sent $y$ a message, and $y$ now wants to respond.
+<p> So we can now send messages anonymously to someone, but how can they reply if our identity was never revealed to them? Suppose that $x$ sent $y$ a message, and $y$ now wants to respond.</p>
 
-</p>
+<p>This problem can be solved by $x$ constructing the following untraceable return address and sending it along with the original message to $y$: $K_1(R_1,A_x), K_x$,
+where $A_x$ is $x$'s address, $K_x$ is "a public key chosen for the occasion", and $R_1$ is some randomness used for padding. The message is then sent the way described before.</p>
+
 
 <br>
 <b>Digital pseudonyms</b>
