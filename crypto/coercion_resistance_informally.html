@@ -35,8 +35,27 @@ abstain from voting, vote for a specific candidate, destroy their ballot, and so
 <p>We will be defining coercion resistance through a Shoup-style game with coin flips. If we get heads, the voter completely 
 complies with the coercer. "More formally, if the voter is an interactive Turing machine (ITM), the coercer learns her internal
  state and she only forwards messages to and from the coercer." The strategy of purely obeying is called a "dummy strategy". </p>
+
 <p>If the coin is tails, the voter will do her best to "deceive the coercer". Notice that the voter is specifically trying to
-deceive the coercer, and not ignoring them or something else.</p>
+deceive the coercer, and not ignoring them or something else. "In this case, the voter will try to give the coercer fake
+ information and when she is instructed to do something, she will act as if she did it while not necessarily complying.
+  More formally she only <b>simulates</b> the dummy strategy and may send and receive messages without forwarding them to the
+  coercer."</p>
+
+<p>
+  Now, suppose this game is being played with a trusted party who is responsible for producing the tally. Now, the trusted party
+  flips a coin and if heads uses the coercer's vote and if tails uses $I_v$. This is basically the same coin flip as before, just
+  framed differently. <!-- For some reason, the trusted party has both $I_v$ and the coercer's version :p -->
+</p>
+
+<p>"We say the game is coercion-resistant with respect to $I_v$ if the following properties hold:
+<ol>
+  <li>"if the flip is tails, the voter can always accomplish $I_v$"</li>
+  <li>"the coercer cannot guess whtether the voter is complying or deceiving him with more (or less) success than he could if he
+  played the same game with the ideal system".</li>
+</ol>
+</p>
+
 
 </body>
 </html>
