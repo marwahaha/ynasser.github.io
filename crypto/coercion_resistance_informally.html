@@ -27,6 +27,16 @@ MathJax.Hub.Config({
 </center>
 <br>
 <br>
+<b>Introduction</b>
+
+<p>Suppose a voter $v$ has been selected for coercion. The voter has intention $I_v$ (it doesn't matter what, whether it's to
+abstain from voting, vote for a specific candidate, destroy their ballot, and so on).
+</p>
+<p>We will be defining coercion resistance through a Shoup-style game with coin flips. If we get heads, the voter completely 
+complies with the coercer. "More formally, if the voter is an interactive Turing machine (ITM), the coercer learns her internal
+ state and she only forwards messages to and from the coercer." The strategy of purely obeying is called a "dummy strategy". </p>
+<p>If the coin is tails, the voter will do her best to "deceive the coercer". Notice that the voter is specifically trying to
+deceive the coercer, and not ignoring them or something else.</p>
 
 </body>
 </html>
