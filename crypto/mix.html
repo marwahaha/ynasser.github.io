@@ -48,7 +48,9 @@ There is a well-known problem in cryptography called the <i>traffic analysis pro
 <p>Each user in the system is responsible for generating a public key $K_{pub}$ (which is shared with everyone else) and a private key $K_{priv}$ (which is kept secret). Recall that given a message $M$, we have $k_{priv}(k_{pub}(M))=M=K_{pub}(K_{priv}(M))$.
 <br>
 <br>
-Suppose you encrypt some message $X$ such that we have $K_{pub}(X)$. Now, suppose someone intercepts your message and makes a guess as to the encrypted message $Y$. They can simply check $K_{pub}(X)=K_{pub}(Y)$ to see if their guess is correct. Thus, messages are padded with random bits to prevent adversaries from guessing the contents of your message. This is usually denoted $K_{pub}(X, R)$ where $R$ denotes some random bits. A user can also <i>sign</i> messages using public key cryptography, so that anyone can verify that the message originated from them. Suppose we have some message $M$ that you want to sign. You post ($M, K_{priv}(M)$), and anyone can compute $K_{pub}(K_{priv}(M))$ and check that the result is $M$. You also have the option of padding $M$ with $C$ when signing, and then users just check that $M$ is contained in the output of the verification step.
+Suppose you encrypt some message $X$ such that we have $K_{pub}(X)$. Now, suppose someone intercepts your message and makes a guess as to the encrypted message $Y$. They can simply check $K_{pub}(X)=K_{pub}(Y)$ to see if their guess is correct. Thus, messages are padded with random bits to prevent adversaries from guessing the contents of your message. This is usually denoted $K_{pub}(X, R)$ where $R$ denotes some random bits.
+</p>
+<p>A user can also <i>sign</i> messages using public key cryptography, so that anyone can verify who authored a message. Suppose we have some message $M$ that you want to sign. You post ($M, K_{priv}(M)$), and anyone can compute $K_{pub}(K_{priv}(M))$ and check that the result is $M$. You also have the option of padding $M$ with $C$ when signing, and then users just check that $M$ is contained in the output of the verification step.
 </p>
 <b>Assumptions</b>
 <ol>
@@ -58,26 +60,24 @@ Suppose you encrypt some message $X$ such that we have $K_{pub}(X)$. Now, suppos
 <b>Mail System</b>
 <br>
 <p>
-The cryptosystem also includes a computer called a mix which is responsible for processing all mail before it's delivered. The mix is responsible for trying to hide relationship between messages it receives and messages it outputs.<!-- fix this -->
+The cryptosystem also includes a computer called a mix which is responsible for processing all mail before it's delivered. The mix is responsible for trying to hide relationship between messages it receives and messages it outputs.
 </p>
 <p>
 Suppose you want to send a message $M$ to another user at address $A$ whose public key is $K_{a}$. You must first pass this message to the mixer (whose public key is $K_1$), who will forward it to destination $A$ on your behalf. Let $\rightarrow$ denote how messages are input and output from a mix. Everything on the left of $\rightarrow$ is input, and everything on the right is output. Thus, we have: $$K_1(R_1,K_a(R_0,M),A) \rightarrow K_a(R_0,M).$$
 </p>
 
 <p>
-TODO: processing happens in SIGNED batches ... <br>
-
 As the mix's purpose is to disassociate input with output, there are several technicalities we need to consider:
 <ol>
-    <li>Disassociating the input and output orders. It won't do if the mix simples follows the "first in, first out" principle. This is fixed by "outputting uniformly sized items in lexicographically ordered batches." (page 85) TODO </li><!-- this makes no sense! also ... mention assumption #1-->
-    <li>What if inputs are repeated? Then it's not hard to figure out which output corresponded to it. Thus, the mix must take care to not process redundant copies. By "redundant", we mean both similar inputs to the mix and ones that the mix unpacks. <!-- is this correct? --></li>
+    <li>Disassociating the input and output orders. It won't do if the mix simples follows the "first in, first out" principle. This is fixed by "outputting uniformly sized items in lexicographically ordered batches."</li>
+    <li>What if inputs are repeated? Then it's not hard to figure out which output corresponded to it. Thus, the mix must take care to not process redundant copies. By "redundant", we mean both similar inputs to the mix and ones that the mix unpacks. </li>
 </ol>
 
-What about repeats across batches (because random strings $R_1$ and so aren't being used or used properly)? Then the mix will need to keep a record of what it has process in the past. Records can be discarded when the mix switches public keys. <!-- which it announces along with a signed copy of its new key with it's old one -->
+What about repeats across batches (because random strings $R_1$ and so aren't being used or used properly)? Then the mix will need to keep a record of what it has process in the past. However, it doesn't need to do this if the random seed contains a timestamp, or something that changes. Records can be discarded when the mix switches to a new public key, which it announces along with a signed copy of its new key using the old one.
 </p>
 <p>
 Optionally, the mix can provide users who give it input with receipts. That way if the mix fails to output the data they passed to it, they can use the receipt as proof. Let $Y$ be the receipt supplied to a user whose message was not output by the mix. We have $$Y = K_{1,priv}(C,K_1(R_1,K_a(R_0,M),A))),$$
-and the missing output is $$X=(K_a(R_0,M),A),$$ and the random string $R_1$ such that $$K_1(Y) = C, K_1(R_1, X). (THIS IS WRONG)$$
+and the missing output is $$X=(K_a(R_0,M),A),$$ and the random string $R_1$ such that $$K_1(Y) = C, K_1(R_1, X).$$ "Because a mix will sign each output batch as a whole, the absence of an item $X$ from a batch can be substantiated by a copy of the signed batch."
 </p>
 <br>
 <b>Cascades</b>
