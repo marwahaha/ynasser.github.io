@@ -48,7 +48,7 @@ There is a well-known problem in cryptography called the <i>traffic analysis pro
 <p>Each user in the system is responsible for generating a public key $K_{pub}$ (which is shared with everyone else) and a private key $K_{priv}$ (which is kept secret). Recall that given a message $M$, we have $k_{priv}(k_{pub}(M))=M=K_{pub}(K_{priv}(M))$.
 <br>
 <br>
-Suppose you encrypt some message $X$ such that we have $K_{pub}(X)$. Now, suppose someone intercepts your message and makes a guess as to the encrypted message $Y$. They can simply check $K_{pub}(X)=K_{pub}(Y)$ to see if their guess is correct. Thus, messages are padded with random bits to prevent adversaries from guessing the contents of your message. PUT OTHER STUFF HERE.
+Suppose you encrypt some message $X$ such that we have $K_{pub}(X)$. Now, suppose someone intercepts your message and makes a guess as to the encrypted message $Y$. They can simply check $K_{pub}(X)=K_{pub}(Y)$ to see if their guess is correct. Thus, messages are padded with random bits to prevent adversaries from guessing the contents of your message. This is usually denoted $K_{pub}(X, R)$ where $R$ denotes some random bits. A user can also <i>sign</i> messages using public key cryptography, so that anyone can verify that the message originated from them. Suppose we have some message $M$ that you want to sign. You post ($M, K_{priv}(M)$), and anyone can compute $K_{pub}(K_{priv}(M))$ and check that the result is $M$. You also have the option of padding $M$ with $C$ when signing, and then users just check that $M$ is contained in the output of the verification step.
 </p>
 <b>Assumptions</b>
 <ol>
