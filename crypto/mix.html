@@ -97,11 +97,18 @@ When the first mix processes the input, it will ouput $$ $$ and send it to the s
 <p>This problem can be solved by $x$ constructing the following untraceable return address and sending it along with the original message to $y$: $K_1(R_1,A_x), K_x$,
 where $A_x$ is $x$'s address, $K_x$ is "a public key chosen for the occasion", and $R_1$ is some randomness used for padding. The message is then sent the way described before.</p>
 
+<p><i>The blurb on certified mail has been intentionally skipped.</i></p>
 
 <br>
 <b>Digital pseudonyms</b>
 <br>
-
+<p>
+We refer to a "public key used to verify signatures made by an anonymous holder of the corresponding private key" as a <b>digital pseudonym</b>. A collection of digital pseudonyms curated by some authority is referred to as a <b>roster</b>. To get onto the roster, you must submit an anonymous application, which the authority either accepts or rejects. When the roster is completely made, the authority cannot trace public keys to who they belong to (and I think, to the applications they came from ... it's not clear from the wording).
+</p>
+<p>
+Each application contains "all the information required for the acceptance decision" and a "special unaddressed digital letter", who message is a public key $K$, which is the "applicant's proposed pseudonym". If only dealing with a single mix, $K$ will be of the form $K_1(R_1,K)$. For $n$ mixes, we have $K_n(R_n, K_{n-1}(R_{m-1}, ...., K_1(R_1, K) ...))$. To disassociate applications from public keys, the authority forms "an input batch containing only those unaddressed letters from the applications it accepts." "This input batch will be supplied to a special cascade whose final output batch will be publicly available," and thus the final, publicly available signed form will be a roster.
+</p>
+<p>TODO: pick up from "Notification of applicants can be ... " on page 3.</p>
 <br>
 <b>General purpose mail systems</b>
 <br>
