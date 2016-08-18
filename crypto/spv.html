@@ -13,7 +13,7 @@ MathJax.Hub.Config({
 <body>
 
 <h1>
-    <center>SPV (WIP)</center>
+    <center>Simplified Payment Verification (SPV) (WIP)</center>
 </h1>
 
 <center>
@@ -24,8 +24,12 @@ MathJax.Hub.Config({
 Note: I originally chose this as a topic because I misheard a lecturer say "simplified proof verification" and got excited thinking it was something related to pure math. Turns out it's not :(
 <br>
 <br>
-<b>Introduction</b>
-<br>
-<br>
-</body>
+<p>When validating the blockchain, there are currently two main options to choose from: the full node ("trustless") model and using SPV clients. In full node verification, you validate the most recent block all the way back to the genesis block. It's basically impossible to fool a client using full node verification, because you'd need to give them a longer chain than the one they have (and because of how Bitcoin operates, they will have the longest one by definition). Also, it's not computationally possible to construct a longer fake chain and pass it off to them.
+</p>
+<p>
+Although full node validation is very secure, it's more resource intensive, both computational and storage-wise. At the time of writing this (8/15/2016), the blockchain's size is <a href="https://blockchain.info/charts/blocks-size">roughly 79 GB</a>. SPV, the alternative approach, involves a client only downloading all the block headers in the beginning, and then "requesting transactions from full nodes as needed." Each block header is 80 bytes, and since a block is generated roughly every 10 minutes (and there 525600 minutes in a year), this works out to $\frac{525600}{10}*80 \approx 4.2$ mb.
+</p>
+
+<p>Ask professor how to test without wasting BTC?</p>
+ </body>
 </html>
