@@ -33,7 +33,7 @@ Although full node validation is very secure, it's more resource intensive, both
 When processing or validating a transaction, the SPV client can request the merkle branch for a given merkle root to check that the transaction is actually in a block. Then the SPV client can "look to block depth as a proxy for transaction validity and security." [1]
 </p>
 <p>
-While more efficient, the SPV approach is not without its flaws. Although you can't really trick the client into thinking a transaction is in a block when it's actually not, you can still <b>lie by omission</b> and say that a block isn't there when it actually is--a sort of denial or service attack. To get around this, "care must be taken to ensure the client is not cut off from honest nodes" and to query multiple different nodes for the same information for the sake of cross-checking.[1]
+While more efficient, the SPV approach is not without its flaws. Although you can't really trick the client into thinking a transaction is in a block when it's actually not, you can still <b>lie by omission</b> and say that a block isn't there when it actually is--a sort of denial of service attack. To get around this, "care must be taken to ensure the client is not cut off from honest nodes" and to query multiple different nodes for the same information for the sake of cross-checking.[1]
 </p>
 <p>
 
