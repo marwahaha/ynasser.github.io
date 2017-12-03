@@ -17,6 +17,13 @@ a {
     border-bottom: 1px dotted;
 }
 
+.left {
+	float: left;
+}
+.right {
+	float: right;
+}
+
 /*Header*/
 
 #actualbody {
