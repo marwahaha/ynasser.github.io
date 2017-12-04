@@ -5,14 +5,17 @@ p {
     font-size: 16px;
 }
 h2 {
-    background-color: #c8afdb;
-    padding: 5px 10px;
-    margin: 1.8em 0 1em;
-    font-weight: bold;
- }
+	padding-bottom: 7px;
+	font-weight: bold;
+	border-bottom: 1px solid #555; 
+}
+h3 {
+	font-size: 150%;
+	font-weight: 100;
+}
     
 a {
-    color: #8029c4;
+    /**color: #8029c4;**/
     text-decoration: none;
     border-bottom: 1px dotted;
 }
@@ -25,6 +28,9 @@ a {
 }
 
 /*Header*/
+
+.opening, .intro {
+}
 
 #actualbody {
     margin: 0 auto;
@@ -50,8 +56,8 @@ a {
 }
 #actualbody .header div.pic {
 	width: 150px;
-	float: left;
-	margin-right: 15px;
+	float: right;
+	/*margin-right: 15px;*/
 }
 #actualbody .header div.pic a {
 	border: none;
@@ -62,6 +68,9 @@ a {
 
 
 /*Body*/
+
+#separator {
+
 
 #actualbody {
     margin: 0 auto;
@@ -87,20 +96,6 @@ div.project-preview div.image img {
 div.project-preview div.text {
 	float: right;
 	width: 59%;
-}
-div.project-preview div.text h3 {
-	font-size: 22px;
-	font-weight: 400;
-}
-div.project-preview div.text h3.authors {
-	font-size: 15px;
-        font-weight: 400;
-	color: #ccc;
-	line-height: 1.4;
-        /*margin-top: 5px;*/
-}
-div.project-preview div.text h3.authors:hover {
-	color: #888;
 }
 #actualbody #content div.project-preview div.text p {
 	font-size: 16px;
