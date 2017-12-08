@@ -1,14 +1,18 @@
 /*General*/
 
+p, h1, h2, h3, a, div, span {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+    color: #444;
+}
 p {
-    font-family: Georgia, "Times New Roman", Times, serif;
     font-size: 140%;
 }
 h2 {
+  margin-top: 60px;
 	padding-bottom: 7px;
     font-size: 190%;
 	font-weight: bold;
-	border-bottom: 1px solid #555; 
+	border-bottom: 1px solid #AAA; 
 }
 h3 {
 	font-size: 190%;
@@ -79,18 +83,35 @@ a:visited {
 #actualbody {
     margin: 0 auto;
     padding: 50px 0;
-    width: 1100px;
+    max-width: 1100px;
+    width: 90%
 }
 
 /* Project Preview*/
 .project-preview {
 	clear: both;
 	padding-bottom: .75em;
-	margin-bottom: 30px;
+	padding-top: 30px;
 }
+.project-preview p {
+  margin-top: 0px;
+}
+
+.article {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.article p {
+  margin: 0px;
+}
+
 /*Why doesn't this work?*/
-.project-preview a:hover {
-    background-color: yellow
+a:hover .project-preview, a:hover .article {
+    background-color: #FAFAFD;
+}
+
+a:hover p {
+  color: #000;
 }
 
 .project-preview .project-image img {
@@ -127,4 +148,3 @@ a:visited {
 .clearboth {
 	clear: both;
 }
-
