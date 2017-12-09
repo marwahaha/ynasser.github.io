@@ -1,0 +1,91 @@
+/*General*/
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+    font-size: 120%;
+}
+
+body{
+  margin: 0px;
+}
+
+.bio-section, .section-header, .project > .text, .note {
+  max-width: 648px;
+  width: 90%;
+}
+
+.bio-section, .section-header, .project, .note {
+  padding-left: 80px;
+  padding-right: auto;
+}
+
+.bio-section {
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+
+.dark {
+  background-color: #252540;
+  color: #CCC;
+  border-bottom: 5px solid #779;
+}
+
+.opening {
+  font-size: 120%;
+  color: #FFF;
+}
+
+.section-header {
+  font-size: 160%;
+  padding-top: 60px;
+  padding-bottom: 20px;
+  font-weight: bold;
+}
+
+.project {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.project > .text, .project img {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.project .text p {
+  margin: 0px;
+}
+.project img {
+  padding-left: 40px;
+  width: 224px;
+}
+
+.role, .venue, .note {
+  font-style: italic;
+  color: #CCC;
+}
+
+.role {
+  margin-top: 10px;
+}
+.title {
+  font-weight: bold;
+}
+.note {
+  margin-top: 0px;
+  font-size: 80%;
+}
+
+
+
+/* LINKS */
+
+a {
+    text-decoration: none;
+}
+a:visited {
+    color: black;
+}
+a:hover .project {
+  background-color: #FAFAFD;
+}
