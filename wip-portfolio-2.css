@@ -14,14 +14,14 @@ body{
   width: 90%;
 }
 
-.bio-section, .section-header, .project, .note, .discussion {
+.bio-section, .contact, .section-header, .project, .note, .discussion, .contact {
   padding-left: 80px;
   padding-right: auto;
 }
 
 .bio-section {
   padding-top: 60px;
-  padding-bottom: 60px;
+  padding-bottom: 10px;
 }
 
 .dark {
@@ -82,7 +82,6 @@ body{
 }
 
 /* LINKS */
-
 a {
     text-decoration: none;
     color: black;
