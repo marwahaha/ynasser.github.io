@@ -14,7 +14,7 @@ body{
   width: 90%;
 }
 
-.bio-section, .section-header, .project, .note {
+.bio-section, .section-header, .project, .note, .discussion {
   padding-left: 80px;
   padding-right: auto;
 }
@@ -44,7 +44,6 @@ body{
 
 .project {
   padding-top: 15px;
-  padding-bottom: 15px;
 }
 
 .project > .text, .project img {
@@ -76,7 +75,11 @@ body{
   font-size: 80%;
 }
 
-
+.discussion-text {
+    text-decoration-line: underline;
+    text-decoration-style: dotted;
+    text-decoration-color: green;
+}
 
 /* LINKS */
 
@@ -87,5 +90,9 @@ a:visited {
     color: black;
 }
 a:hover .project {
-  background-color: #FAFAFD;
+  background-color: #f2f2ff;
 }
+a:hover .text {
+  background-color: #f2f2ff;
+}
+
