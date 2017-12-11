@@ -113,16 +113,16 @@ a {
     text-decoration: none;
     color: black;
 }
-/* Why doesn't this work? */
+a:visited {
+    color: black;
+}
 .discussion a{
     text-decoration-line: underline;
     text-decoration-style: dotted;
     text-decoration-color: green;
+    color: #336600;
 }
 
-a:visited {
-    color: black;
-}
 a:hover .project {
   background-color: #f2f2ff;
 }
