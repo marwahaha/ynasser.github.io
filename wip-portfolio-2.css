@@ -14,7 +14,7 @@ body{
   width: 90%;
 }
 
-.bio-section, .contact, .section-header, .project, .note, .discussion, .contact {
+.bio-section, .contact, .section-header, .project, .note, .discussion, .name, .project-body {
   padding-left: 80px;
   padding-right: auto;
 }
@@ -27,12 +27,30 @@ body{
 .dark {
   background-color: #29513f;
   color: #CCC;
-  border-bottom: 5px solid #779;
+  /*border-bottom: 5px solid #779;*/
+  padding-bottom: 10px;
 }
 
 .opening {
   font-size: 120%;
   color: #FFF;
+}
+
+.name {
+    line-height: 60px;
+    height: 70px;
+    width: 100%;
+    background-color: #29513f;
+    float: left;
+    margin-bottom: 20px;
+    font-size: 20px;
+    /* Why doesn't this work?*/
+    padding-left: 80px;
+}
+
+hr {
+    width: 92%;
+    border-bottom: 1px solid #CCC;
 }
 
 .section-header {
@@ -45,12 +63,26 @@ body{
 .project {
   padding-top: 15px;
 }
-
+.project-title{
+    padding-top: 130px;
+    font-size: 70px;
+    font-weight: 700;
+    padding-bottom: 10px;
+}
+.project-description, .project-title{
+    padding-left: 80px;
+    width: 800px;
+}
+.project-description {
+    font-size: 25px;
+}
 .project > .text, .project img {
   display: inline-block;
   vertical-align: top;
 }
-
+.project-body {
+    width: 50%;
+}
 .project .text p {
   margin: 0px;
 }
@@ -86,6 +118,13 @@ a {
     text-decoration: none;
     color: black;
 }
+/* Why doesn't this work? */
+a .discussion-text {
+    text-decoration-line: underline;
+    text-decoration-style: dotted;
+    text-decoration-color: green;
+}
+
 a:visited {
     color: black;
 }
@@ -94,5 +133,11 @@ a:hover .project {
 }
 a:hover .text {
   background-color: #f2f2ff;
+}
+
+a .project-body {
+    text-decoration-line: underline;
+    text-decoration-style: dotted;
+    text-decoration-color: green;
 }
 
