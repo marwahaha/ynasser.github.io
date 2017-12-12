@@ -1,0 +1,141 @@
+/*General*/
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+    font-size: 120%;
+}
+
+body{
+  margin: 0px;
+}
+
+
+
+.bio-section, .section-header, .project > .text, .note {
+  max-width: 648px;
+  width: 90%;
+}
+
+.bio-section, .contact, .section-header, .project, .note, .discussion, .name, .project-body, .twitter-tweet, .image {
+  padding-left: 80px;
+  padding-right: auto;
+}
+
+.bio-section {
+  padding-top: 60px;
+  padding-bottom: 10px;
+}
+
+.dark {
+  background-color: #29513f;
+  color: #CCC;
+  /*border-bottom: 5px solid #779;*/
+  padding-bottom: 10px;
+}
+
+.opening {
+  font-size: 120%;
+  color: #FFF;
+}
+
+.name {
+    line-height: 60px;
+    height: 70px;
+    width: 100%;
+    background-color: #29513f;
+    float: left;
+    margin-bottom: 20px;
+    font-size: 20px;
+    /* Why doesn't this work?*/
+    padding-left: 80px;
+}
+
+hr {
+    width: 92%;
+    border-bottom: 1px solid #CCC;
+}
+
+.section-header {
+  font-size: 160%;
+  padding-top: 60px;
+  padding-bottom: 20px;
+  font-weight: bold;
+}
+
+.project {
+  padding-top: 15px;
+}
+.project-title{
+    padding-top: 130px;
+    font-size: 70px;
+    font-weight: 700;
+    padding-bottom: 10px;
+}
+.project-description, .project-title{
+    padding-left: 80px;
+    width: 800px;
+}
+.project-description {
+    font-size: 25px;
+}
+.project > .text, .project img {
+  display: inline-block;
+  vertical-align: top;
+}
+.project-body {
+    width: 50%;
+}
+.project .text p {
+  margin: 0px;
+}
+.project img {
+  padding-left: 40px;
+  width: 224px;
+}
+
+.role, .venue, .note {
+  font-style: italic;
+  color: #CCC;
+}
+
+.role {
+  margin-top: 10px;
+}
+.title {
+  font-weight: bold;
+}
+.note {
+  margin-top: 0px;
+  font-size: 80%;
+}
+
+
+/* LINKS */
+a {
+    text-decoration: none;
+    color: black;
+}
+a:visited {
+    color: black;
+}
+.discussion a{
+    text-decoration-line: underline;
+    text-decoration-style: dotted;
+    text-decoration-color: green;
+    color: #336600;
+}
+
+a:hover .project {
+  background-color: #f2f2ff;
+}
+a:hover .text {
+  background-color: #f2f2ff;
+}
+
+.project-body a, .project-opening a{
+    text-decoration-line: underline;
+    text-decoration-style: dotted;
+    text-decoration-color: green;
+    color: green;
+}
+
