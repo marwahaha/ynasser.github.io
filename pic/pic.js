@@ -6,6 +6,7 @@ $(document).ready(function() {
         canvas.clear();
         
         var theta = document.getElementById("theta").value;
+        document.getElementById("current_theta_value").innerText = theta;
         var e = document.getElementById("tiling_selection");
         var tiling = e.options[e.selectedIndex].value;
         var display_base = document.getElementById("checkbox").checked;
@@ -426,11 +427,10 @@ $(document).ready(function() {
             canvas.add(plane);
     }
 
-    $("#button").click(function() { main(); } );
-    $("#theta_input").keypress(function(e) { if (e.which == 10 || e.which == 13) { main(); } });
-    $('#checkbox').click(function(){
-        main();
-    });
+    $("#theta").change(main);
+    $("#tiling_dropdown").change(main);
+    $('#checkbox').click(main);
     var canvas = new fabric.StaticCanvas('c');
+    main();
 
 });
